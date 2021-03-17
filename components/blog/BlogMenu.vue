@@ -1,10 +1,9 @@
 <template>
 	<menu class="menu">
-		<p class="menu-label">Menu</p>
+		<p class="menu-label">Menù {{ currentIndex }}</p>
 		<ul class="menu-list">
 			<li v-for="section in sections" :key="`blog-menu-${section.slug}`">
-				<NuxtLink v-if="section.slug === 'index'" :to="'/sex'">index</NuxtLink>
-				<NuxtLink v-else :to="calculateSectionURL(section.slug)">{{
+				<NuxtLink :to="calculateSectionURL(section)">{{
 					section.section_label
 				}}</NuxtLink>
 				<span v-if="section.toc.length">
@@ -14,7 +13,7 @@
 						:key="`blog-menu-${section}-${toc.id}`"
 					>
 						<li>
-							<NuxtLink :to="calculateSectionURL(section.slug, toc.id)">{{
+							<NuxtLink :to="calculateSectionURL(section, toc.id)">{{
 								toc.text
 							}}</NuxtLink>
 						</li>
@@ -35,17 +34,33 @@ export default Vue.extend({
 			require: true,
 		},
 	},
+	data() {
+		return {
+			currentIndex: null,
+		}
+	},
+	created() {
+		const { section } = this.$route.params
+		this.currentIndex = this.$props.sections.find(
+			({ slug }) => slug === section
+		).index
+	},
 	methods: {
-		calculateSectionURL(sectionSlug, tocId) {
+		calculateSectionURL({ slug, index }, tocId) {
 			const output = {
 				name: 'blog-macro-topic-slug-section',
 				params: {
 					...this.$route.params,
-					section: sectionSlug,
+					section: slug,
+				},
+				query: {
+					direction: 'down',
 				},
 			}
 
-			if (tocId) output.hash = `#${tocId}`
+			if (index >= this.currentIndex) output.query.direction = 'top'
+
+			if (tocId) output.hash = `/#${tocId}`
 
 			return output
 		},

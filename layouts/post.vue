@@ -18,8 +18,14 @@
 			</div>
 		</nav>
 
-		<main class="main-content container is-fluid">
-			<nuxt />
-		</main>
+		<Nuxt />
 	</div>
 </template>
+
+<script>
+export default {
+	transition: {
+		mode: '',
+	},
+}
+</script>

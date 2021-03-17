@@ -1,5 +1,5 @@
 <template>
-	<article>
+	<article class="container is-fluid">
 		<h1 class="title">{{ slug }} - {{ section }}</h1>
 		<h3 class="subtitle">{{ macro }}/{{ topic }}</h3>
 
@@ -24,7 +24,7 @@ export default Vue.extend({
 		const { macro, topic, slug, section } = params
 
 		const article = await $content(macro, topic, slug)
-			.only(['slug', 'section_label', 'toc'])
+			.only(['slug', 'section_label', 'toc', 'index'])
 			.sortBy('index')
 			.fetch()
 
@@ -44,6 +44,14 @@ export default Vue.extend({
 		const articleSection = await $content(macro, topic, slug, section).fetch()
 
 		return { macro, topic, slug, section, articleSection, menuSections }
+	},
+	transition(to, from) {
+		if (!from) return 'fade'
+		const { direction } = from.query
+
+		console.log(direction)
+
+		return `post-${direction}`
 	},
 })
 </script>

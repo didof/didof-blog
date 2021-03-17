@@ -1,0 +1,59 @@
+.post-top-enter-active {
+	animation: enterTop 0.5s ease-in-out;
+}
+
+.post-top-leave-active {
+	animation: leaveDown 0.5s ease-in-out;
+}
+
+.post-down-enter-active {
+	animation: enterDown 0.5s ease-in-out;
+}
+
+.post-down-leave-active {
+	animation: leaveTop 0.5s ease-in-out;
+}
+
+@keyframes enterTop {
+	from {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes enterDown {
+	from {
+		opacity: 0;
+		transform: translateY(+100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes leaveTop {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(-100%);
+	}
+}
+
+@keyframes leaveDown {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(+100%);
+	}
+}
