@@ -6,10 +6,10 @@
 			Far apparire uno stack di cards per ogni topic, tante più card per ogni
 			sotto parte
 		</p>
-		<pre>{{ macroContentCount }}</pre>
+		<pre>{{ macros }}</pre>
 
 		<p>Far apparrire i miscellaneous in modo disordinato</p>
-		<pre>{{ miscellaneous }}</pre>
+		<pre>{{ shots }}</pre>
 	</div>
 </template>
 
@@ -22,6 +22,7 @@ export default Vue.extend({
 		const { macro } = params
 
 		const articlesPaths = await $content(macro, { deep: true })
+			.where({ dir: { $ne: `/${macro}/_shots` } })
 			.only('path')
 			.fetch()
 
@@ -35,10 +36,14 @@ export default Vue.extend({
 			return accumulator
 		}, {})
 
-		const { miscellaneous } = macroContentCount
-		delete macroContentCount.miscellaneous
+		const shotsThumbnailContent = await $content(macro, { deep: true })
+			.where({
+				dir: { $eq: `/${macro}/_shots` },
+			})
+			.only(['title', 'description', 'color', 'thumbnail', 'slug'])
+			.fetch()
 
-		return { macro, macroContentCount, miscellaneous }
+		return { macro, macros: macroContentCount, shots: shotsThumbnailContent }
 	},
 })
 </script>
