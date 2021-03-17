@@ -7,9 +7,9 @@
 			sotto parte
 		</p>
 		<pre>{{ topics }}</pre>
-		<div v-for="(amount, topic) in topics" :key="`topic-${topic}`">
-			<button @click="onTopicCardClick(topic)">
-				{{ topic }} ({{ amount }})
+		<div v-for="(amount, topicSlug) in topics" :key="`topic-${topicSlug}`">
+			<button @click="onTopicCardClick(topicSlug)">
+				{{ topicSlug }} ({{ amount }})
 			</button>
 		</div>
 
@@ -51,10 +51,10 @@ export default Vue.extend({
 		return { macro, topics: macroContentCount, shots: shotsThumbnailContent }
 	},
 	methods: {
-		onTopicCardClick(topic) {
+		onTopicCardClick(topicSlug) {
 			this.$router.push({
 				name: 'blog-macro-topic',
-				params: { macro: this.macro, topic },
+				params: { macro: this.macro, topic: topicSlug },
 			})
 		},
 	},
