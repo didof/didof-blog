@@ -1,6 +1,8 @@
 ---
 title: Use Window Size - setup
 description: Learning how to use this new custom hook of mine
+index: 1
+section_label: Setup
 color: red
 thumbnail:
   img: happy_fingers.jpg
@@ -13,4 +15,14 @@ author:
   bio: Enthusiast
 ---
 
-Setup
+# Setup
+
+bla bla bla
+
+## OS
+
+bla bla bla
+
+## Hardware
+
+bla bla bla bla bla
