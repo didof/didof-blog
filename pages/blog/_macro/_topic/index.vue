@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1>Topic: {{ topic }} ({{ macro }})</h1>
+		<h1 class="title">Topic: {{ topic }} ({{ macro }})</h1>
 
 		<div
 			v-for="(amount, articleSlug) in groupedArticles"

@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<h1>Article: {{ slug }}</h1>
-		<h2>{{ macro }}/{{ topic }}</h2>
+		<h1 class="title">Article: {{ slug }}</h1>
+		<h2 class="subtitle">{{ macro }}/{{ topic }}</h2>
 
 		<BlogMenu :sections="menuSections" />
 
