@@ -1,7 +1,8 @@
 ---
 title: Lazy Image - introduction
 description: Learning how to use this new custom hook of mine
-index: 0
+index: 1
+section_label: Low Resolution & High Resolution
 color: red
 thumbnail:
   img: happy_fingers.jpg
@@ -14,4 +15,4 @@ author:
   bio: Enthusiast
 ---
 
-Introduction
+# Lazy Loading Image

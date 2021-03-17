@@ -1,7 +1,8 @@
 ---
 title: Lazy Image - introduction
 description: Learning how to use this new custom hook of mine
-index: 0
+index: 2
+section_label: Defer loading
 color: red
 thumbnail:
   img: happy_fingers.jpg
@@ -14,4 +15,4 @@ author:
   bio: Enthusiast
 ---
 
-Introduction
+# Part 2

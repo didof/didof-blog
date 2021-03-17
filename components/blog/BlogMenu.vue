@@ -2,10 +2,15 @@
 	<menu class="menu">
 		<p class="menu-label">Menù {{ currentIndex }}</p>
 		<ul class="menu-list">
-			<li v-for="section in sections" :key="`blog-menu-${section.slug}`">
-				<NuxtLink :to="calculateSectionURL(section)">{{
-					section.section_label
-				}}</NuxtLink>
+			<li
+				v-for="(section, index) in sections"
+				:key="`blog-menu-${section.slug}`"
+			>
+				<NuxtLink
+					:to="calculateSectionURL(section)"
+					:class="calculateAnchorClass(index)"
+					>{{ section.section_label }}</NuxtLink
+				>
 				<span v-if="section.toc.length">
 					<ul
 						class="menu"
@@ -41,6 +46,10 @@ export default Vue.extend({
 	},
 	created() {
 		const { section } = this.$route.params
+		if (!section) {
+			this.currentIndex = 0
+			return
+		}
 		this.currentIndex = this.$props.sections.find(
 			({ slug }) => slug === section
 		).index
@@ -63,6 +72,9 @@ export default Vue.extend({
 			if (tocId) output.hash = `/#${tocId}`
 
 			return output
+		},
+		calculateAnchorClass(index) {
+			return { 'is-active': index === this.currentIndex }
 		},
 	},
 })

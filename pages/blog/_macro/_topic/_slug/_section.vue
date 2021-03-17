@@ -1,6 +1,6 @@
 <template>
 	<article class="container is-fluid">
-		<h1 class="title">{{ slug }} - {{ section }}</h1>
+		<h1 class="title">{{ articleSection.title }}</h1>
 		<h3 class="subtitle">{{ macro }}/{{ topic }}</h3>
 
 		<div class="columns">
@@ -48,8 +48,6 @@ export default Vue.extend({
 	transition(to, from) {
 		if (!from) return 'fade'
 		const { direction } = from.query
-
-		console.log(direction)
 
 		return `post-${direction}`
 	},
