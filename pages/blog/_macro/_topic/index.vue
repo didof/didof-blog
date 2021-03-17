@@ -9,8 +9,9 @@ import Vue from 'vue'
 
 export default Vue.extend({
 	name: 'page-blog-macro-topic',
-	async asyncData(context) {
-		const { macro, topic } = context.params
+	async asyncData({ $content, params }) {
+		const { macro, topic } = params
+
 		return { macro, topic }
 	},
 })

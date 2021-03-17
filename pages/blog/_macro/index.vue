@@ -6,7 +6,12 @@
 			Far apparire uno stack di cards per ogni topic, tante più card per ogni
 			sotto parte
 		</p>
-		<pre>{{ macros }}</pre>
+		<pre>{{ topics }}</pre>
+		<div v-for="(amount, topic) in topics" :key="`topic-${topic}`">
+			<button @click="onTopicCardClick(topic)">
+				{{ topic }} ({{ amount }})
+			</button>
+		</div>
 
 		<p>Far apparrire i miscellaneous in modo disordinato</p>
 		<pre>{{ shots }}</pre>
@@ -43,7 +48,15 @@ export default Vue.extend({
 			.only(['title', 'description', 'color', 'thumbnail', 'slug'])
 			.fetch()
 
-		return { macro, macros: macroContentCount, shots: shotsThumbnailContent }
+		return { macro, topics: macroContentCount, shots: shotsThumbnailContent }
+	},
+	methods: {
+		onTopicCardClick(topic) {
+			this.$router.push({
+				name: 'blog-macro-topic',
+				params: { macro: this.macro, topic },
+			})
+		},
 	},
 })
 </script>
