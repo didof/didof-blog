@@ -3,9 +3,14 @@
 		<h1 class="title">Article: {{ slug }}</h1>
 		<h2 class="subtitle">{{ macro }}/{{ topic }}</h2>
 
-		<BlogMenu :sections="menuSections" />
-
-		<pre>{{ menuSections }}</pre>
+		<div class="columns">
+			<aside class="column is-3">
+				<BlogMenu :sections="menuSections" />
+			</aside>
+			<main class="column">
+				<NuxtContent :document="index" />
+			</main>
+		</div>
 	</div>
 </template>
 

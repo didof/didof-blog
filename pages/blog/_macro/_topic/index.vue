@@ -41,7 +41,12 @@ export default Vue.extend({
 		onArticleCardClick(articleSlug) {
 			this.$router.push({
 				name: 'blog-macro-topic-slug',
-				params: { macro: this.macro, topic: this.topic, slug: articleSlug },
+				params: {
+					macro: this.macro,
+					topic: this.topic,
+					slug: articleSlug,
+					section: 'index',
+				},
 			})
 		},
 	},

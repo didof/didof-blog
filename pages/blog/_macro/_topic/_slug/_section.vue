@@ -3,8 +3,14 @@
 		<h1 class="title">{{ slug }} - {{ section }}</h1>
 		<h3 class="subtitle">{{ macro }}/{{ topic }}</h3>
 
-		<BlogMenu :sections="menuSections" />
-		<NuxtContent :document="articleSection" />
+		<div class="columns">
+			<aside class="column is-3">
+				<BlogMenu :sections="menuSections" />
+			</aside>
+			<main class="column">
+				<NuxtContent :document="articleSection" />
+			</main>
+		</div>
 	</article>
 </template>
 
@@ -13,6 +19,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
 	name: 'page-blog-macro-topic-slug-section',
+	layout: 'post',
 	async asyncData({ $content, params }) {
 		const { macro, topic, slug, section } = params
 
