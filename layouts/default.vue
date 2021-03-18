@@ -21,6 +21,8 @@
 		<div class="container is-fluid">
 			<nuxt />
 		</div>
+
+		<footer>footer</footer>
 	</div>
 </template>
 
@@ -44,3 +46,12 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+footer {
+	margin-top: 50px;
+	background-color: blue;
+	width: 100%;
+	height: 200px;
+}
+</style>

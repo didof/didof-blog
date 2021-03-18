@@ -15,8 +15,7 @@ const observer = new IntersectionObserver((entries, observer) => {
 })
 
 Vue.directive('observe', {
-	bind: (el, binding, vnode) => {
-		console.log(binding)
+	bind: (el, binding) => {
 		const cb = binding.value
 
 		if (!(cb instanceof Function)) {

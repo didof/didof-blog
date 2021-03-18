@@ -34,20 +34,24 @@
 		<br />
 		<br />
 		<br />
+		<br />
+		<br />
 
-		<div v-observe="eureka">test</div>
+		<Arrogant />
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
 import MacroCard from '~/components/blog/card/MacroCard'
+import Arrogant from '~/components/layout/Arrogant'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
 
 export default Vue.extend({
 	name: 'page-blog',
 	components: {
 		MacroCard,
+		Arrogant,
 	},
 	async asyncData({ $content }) {
 		const articlesPaths = await $content({ deep: true }).only(['path']).fetch()
