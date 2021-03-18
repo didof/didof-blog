@@ -9,7 +9,7 @@
 
 <script>
 import Vue from 'vue'
-import OnlyImageCard from '../card/OnlyImageCard'
+import OnlyImageCard from '~/components/card/OnlyImageCard'
 
 export default Vue.extend({
 	name: 'topic-card',

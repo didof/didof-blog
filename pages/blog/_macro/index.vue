@@ -8,6 +8,7 @@
 					:slug="slotProps.item.topic"
 					@card-click="onTopicCardClick(slotProps.item.topic)"
 					v-animate-enter:slide.bottom
+					v-cursor
 				/>
 			</template>
 		</BaseGrid>
@@ -26,7 +27,7 @@
 
 <script>
 import Vue from 'vue'
-import TopicCard from '~/components/blog/TopicCard.vue'
+import TopicCard from '~/components/blog/card/TopicCard.vue'
 import { capitalize } from '~/utils/string'
 
 export default Vue.extend({
@@ -85,15 +86,3 @@ export default Vue.extend({
 	},
 })
 </script>
-
-<style scoped>
-.enter {
-	opacity: 1;
-	transform: translateY(0);
-}
-.before-enter {
-	opacity: 0;
-	transform: translateY(150px);
-	transition: all 1.3s ease;
-}
-</style>

@@ -54,9 +54,3 @@ export default Vue.extend({
 	},
 })
 </script>
-
-<style scoped>
-section {
-	width: ;
-}
-</style>
