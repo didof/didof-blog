@@ -28,7 +28,8 @@
 <script>
 import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
-import { capitalize } from '~/utils/string'
+import { capitalize } from '~/utils/dataTypes/string'
+import { groupWithAmount } from '~/utils/contentHandlers/group'
 
 export default Vue.extend({
 	name: 'page-blog-macro',
@@ -43,20 +44,7 @@ export default Vue.extend({
 			.only('path')
 			.fetch()
 
-		const groupedTopics = articlesPaths.reduce((groups, { path }) => {
-			const topic = path.split('/')[2]
-
-			const foundIndex = groups.findIndex(el => el.topic === topic)
-
-			if (Boolean(~foundIndex)) {
-				const incrementedAmount = groups[foundIndex].amount + 1
-				groups.splice(foundIndex, 1, { topic, amount: incrementedAmount })
-			} else {
-				groups = [...groups, { topic, amount: 1 }]
-			}
-
-			return groups
-		}, [])
+		const groupedTopics = groupWithAmount(articlesPaths, 'topic')
 
 		const shotsThumbnailContent = await $content(macro, { deep: true })
 			.where({

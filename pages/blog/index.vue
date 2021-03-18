@@ -18,6 +18,7 @@
 <script>
 import Vue from 'vue'
 import MacroCard from '~/components/blog/card/MacroCard'
+import { groupWithAmount } from '~/utils/contentHandlers/group'
 
 export default Vue.extend({
 	name: 'page-blog',
@@ -27,20 +28,7 @@ export default Vue.extend({
 	async asyncData({ $content }) {
 		const articlesPaths = await $content({ deep: true }).only(['path']).fetch()
 
-		const groupedMacros = articlesPaths.reduce((groups, { path }) => {
-			const macro = path.split('/')[1]
-
-			const foundIndex = groups.findIndex(el => el.macro === macro)
-
-			if (Boolean(~foundIndex)) {
-				const incrementedAmount = groups[foundIndex].amount + 1
-				groups.splice(foundIndex, 1, { macro, amount: incrementedAmount })
-			} else {
-				groups = [...groups, { macro, amount: 1 }]
-			}
-
-			return groups
-		}, [])
+		const groupedMacros = groupWithAmount(articlesPaths, 'macro')
 
 		return { macros: groupedMacros }
 	},
