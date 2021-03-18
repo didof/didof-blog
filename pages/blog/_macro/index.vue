@@ -13,21 +13,24 @@
 			</template>
 		</BaseGrid>
 
-		<p>Some ideas for the shots</p>
-		<ul>
-			<li>
-				Cards shattered in disorder and draggable from the user. A bucket on the
-				right where to save readings for later (localStorage)
-			</li>
-			<li>Slot machine that presents any time 3 different ones</li>
-		</ul>
-		<pre>{{ shots }}</pre>
+		<Shooter :items="shots" :itemHeight="400">
+			<template v-slot:default="slotProps">
+				<div class="card w-300 h-500">
+					<div class="card-header-title">
+						{{ slotProps.item.title }}
+					</div>
+				</div>
+			</template></Shooter
+		>
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
+import Arrogant from '~/components/layout/Arrogant.vue'
+import Shooter from '~/components/layout/Shooter'
+
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
 
@@ -35,6 +38,8 @@ export default Vue.extend({
 	name: 'page-blog-macro',
 	components: {
 		TopicCard,
+		Arrogant,
+		Shooter,
 	},
 	async asyncData({ $content, params }) {
 		const { macro } = params
