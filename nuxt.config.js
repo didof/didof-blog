@@ -11,10 +11,17 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: ['~/assets/css/main', '~/assets/css/transitions'],
+	css: [
+		'~/assets/css/main',
+		'~/assets/css/transitions',
+		'~/assets/css/animations/animate-enter.css',
+	],
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: ['~plugins/registerBaseComponents'],
+	plugins: [
+		'~plugins/registerBaseComponents.js',
+		'~/plugins/directives/animateEnter.client.js',
+	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,

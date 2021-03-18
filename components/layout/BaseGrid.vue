@@ -40,3 +40,11 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style scoped>
+.column {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>

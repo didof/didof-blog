@@ -1,0 +1,63 @@
+.will-animate {
+	opacity: 0;
+}
+
+.animate-slide-top {
+	animation: slide-top 2s ease-in-out;
+}
+
+.animate-slide-right {
+	animation: slide-right 2s ease-in-out;
+}
+
+.animate-slide-bottom {
+	animation: slide-bottom 2s ease-in-out;
+}
+
+.animate-slide-left {
+	animation: slide-left 2s ease-in-out;
+}
+
+@keyframes slide-top {
+	from {
+		opacity: 0;
+		transform: translateY(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-bottom {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-left {
+	from {
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slide-right {
+	from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

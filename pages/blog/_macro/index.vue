@@ -1,28 +1,39 @@
 <template>
 	<div>
-		<h1>Macrotopic: {{ macro }}</h1>
+		<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
 
-		<p>
-			Far apparire uno stack di cards per ogni topic, tante più card per ogni
-			sotto parte
-		</p>
-		<pre>{{ topics }}</pre>
-		<div v-for="(amount, topicSlug) in topics" :key="`topic-${topicSlug}`">
-			<button @click="onTopicCardClick(topicSlug)">
-				{{ topicSlug }} ({{ amount }})
-			</button>
-		</div>
+		<BaseGrid :items="topics">
+			<template v-slot:default="slotProps">
+				<TopicCard
+					:slug="slotProps.item.topic"
+					@card-click="onTopicCardClick(slotProps.item.topic)"
+					v-animate-enter:slide.bottom
+				/>
+			</template>
+		</BaseGrid>
 
-		<p>Far apparrire i miscellaneous in modo disordinato</p>
+		<p>Some ideas for the shots</p>
+		<ul>
+			<li>
+				Cards shattered in disorder and draggable from the user. A bucket on the
+				right where to save readings for later (localStorage)
+			</li>
+			<li>Slot machine that presents any time 3 different ones</li>
+		</ul>
 		<pre>{{ shots }}</pre>
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
+import TopicCard from '~/components/blog/TopicCard.vue'
+import { capitalize } from '~/utils/string'
 
 export default Vue.extend({
 	name: 'page-blog-macro',
+	components: {
+		TopicCard,
+	},
 	async asyncData({ $content, params }) {
 		const { macro } = params
 
@@ -31,15 +42,20 @@ export default Vue.extend({
 			.only('path')
 			.fetch()
 
-		const macroContentCount = articlesPaths.reduce((accumulator, { path }) => {
+		const groupedTopics = articlesPaths.reduce((groups, { path }) => {
 			const topic = path.split('/')[2]
 
-			accumulator[topic] !== undefined
-				? (accumulator[topic] += 1)
-				: (accumulator[topic] = 1)
+			const foundIndex = groups.findIndex(el => el.topic === topic)
 
-			return accumulator
-		}, {})
+			if (Boolean(~foundIndex)) {
+				const incrementedAmount = groups[foundIndex].amount + 1
+				groups.splice(foundIndex, 1, { topic, amount: incrementedAmount })
+			} else {
+				groups = [...groups, { topic, amount: 1 }]
+			}
+
+			return groups
+		}, [])
 
 		const shotsThumbnailContent = await $content(macro, { deep: true })
 			.where({
@@ -48,7 +64,16 @@ export default Vue.extend({
 			.only(['title', 'description', 'color', 'thumbnail', 'slug'])
 			.fetch()
 
-		return { macro, topics: macroContentCount, shots: shotsThumbnailContent }
+		return {
+			macro: macro,
+			topics: groupedTopics,
+			shots: shotsThumbnailContent,
+		}
+	},
+	computed: {
+		capitalizedMacro() {
+			return capitalize(this.macro)
+		},
 	},
 	methods: {
 		onTopicCardClick(topicSlug) {
@@ -60,3 +85,15 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style scoped>
+.enter {
+	opacity: 1;
+	transform: translateY(0);
+}
+.before-enter {
+	opacity: 0;
+	transform: translateY(150px);
+	transition: all 1.3s ease;
+}
+</style>
