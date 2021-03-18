@@ -12,6 +12,30 @@
 				/>
 			</template>
 		</BaseGrid>
+
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+
+		<div v-observe="eureka">test</div>
 	</div>
 </template>
 
@@ -38,6 +62,9 @@ export default Vue.extend({
 				name: 'blog-macro',
 				params: { macro: macroSlug },
 			})
+		},
+		eureka() {
+			console.log('eureka')
 		},
 	},
 })

@@ -22,6 +22,7 @@ export default {
 		'~plugins/registerBaseComponents.js',
 		'~/plugins/directives/animateEnter.client.js',
 		'~/plugins/directives/cursor.client.js',
+		'~/plugins/directives/observe.client.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components
