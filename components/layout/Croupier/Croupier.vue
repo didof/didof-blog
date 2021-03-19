@@ -24,8 +24,6 @@ import { isEven } from '~/utils/bitwise'
 import { splitInChunks } from '~/utils/dataTypes/array'
 import { getRandomInt } from '~/utils/randomInt'
 
-// TODO il deck si sposta da sinistra verso destra (sai il numero di carte e quanto ci mette ogni carta, quindi sai quanto ci mette il deck)
-
 export default Vue.extend({
 	name: 'croupier',
 	props: {

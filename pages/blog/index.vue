@@ -12,8 +12,6 @@
 				/>
 			</template>
 		</BaseGrid>
-
-		<Arrogant></Arrogant>
 	</div>
 </template>
 

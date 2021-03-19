@@ -74,7 +74,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
-			mockItems: new Array(36).fill({ title: 'test' }),
+			mockItems: new Array(13).fill({ title: 'test' }),
 		}
 	},
 	computed: {
