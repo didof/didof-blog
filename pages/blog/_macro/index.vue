@@ -77,8 +77,6 @@ export default Vue.extend({
 			])
 			.fetch()
 
-		console.log(shots)
-
 		return {
 			macro,
 			topics,

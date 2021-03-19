@@ -1,5 +1,11 @@
 <template>
-	<div class="card" :style="cardStyle" @click="onCardClick">
+	<div class="card" :style="cardStyle" @click="onCardClick" v-cursor>
+		<header class="card-header">
+			<p class="card-header-title">
+				{{ title }}
+			</p>
+			<HeartIcon />
+		</header>
 		<div class="card-image">
 			<DeferredImage
 				:width="width"
@@ -8,9 +14,6 @@
 				:highSrc="highSrc"
 			/>
 		</div>
-		<header class="card-header">
-			<p class="card-header-title">{{ title }}</p>
-		</header>
 
 		<div class="card-content">
 			<div class="content">
@@ -23,11 +26,13 @@
 <script>
 import Vue from 'vue'
 import DeferredImage from '~/components/image/DeferredImage'
+import { HeartIcon } from '~/components/icons'
 
 export default Vue.extend({
 	name: 'shot-card',
 	components: {
 		DeferredImage,
+		HeartIcon,
 	},
 	props: {
 		width: {
