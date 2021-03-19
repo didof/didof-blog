@@ -1,5 +1,5 @@
 <template>
-	<div class="card" :style="cardStyle">
+	<div class="card" :style="cardStyle" @click="onCardClick">
 		<div class="card-image">
 			<DeferredImage
 				:width="width"
@@ -17,12 +17,6 @@
 				{{ description }}
 			</div>
 		</div>
-
-		<footer class="card-footer">
-			<a href="#" class="card-footer-item">Save</a>
-			<a href="#" class="card-footer-item">Edit</a>
-			<a href="#" class="card-footer-item">Delete</a>
-		</footer>
 	</div>
 </template>
 
@@ -60,6 +54,10 @@ export default Vue.extend({
 			type: String,
 			require: true,
 		},
+		path: {
+			type: String,
+			require: true,
+		},
 	},
 	computed: {
 		lowSrc() {
@@ -73,6 +71,19 @@ export default Vue.extend({
 				height: this.height,
 				width: this.width,
 			}
+		},
+	},
+	methods: {
+		onCardClick() {
+			const [_, macro, topic, slug] = this.path.split('/')
+			this.$router.push({
+				name: 'blog-macro-topic-slug',
+				params: {
+					macro,
+					topic,
+					slug,
+				},
+			})
 		},
 	},
 })

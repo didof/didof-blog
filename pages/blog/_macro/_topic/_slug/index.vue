@@ -1,10 +1,10 @@
 <template>
-	<div>
-		<h1 class="title">Article: {{ slug }}</h1>
-		<h2 class="subtitle">{{ macro }}/{{ topic }}</h2>
+	<div class="container is-fluid">
+		<h1 class="title" v-animate-enter:slide.left>Article: {{ slug }}</h1>
+		<h2 class="subtitle" v-animate-enter:slide.left>{{ macro }}/{{ topic }}</h2>
 
 		<div class="columns">
-			<aside class="column is-3">
+			<aside class="column is-3" v-if="!!menuSections">
 				<BlogMenu :sections="menuSections" />
 			</aside>
 			<main class="column">
@@ -21,6 +21,18 @@ export default Vue.extend({
 	name: 'page-blog-macro-topic-slug',
 	async asyncData({ $content, params }) {
 		const { macro, topic, slug } = params
+
+		if (topic === '_shots') {
+			const articleIndex = await $content(macro, topic, slug).fetch()
+			console.log(articleIndex)
+			return {
+				macro,
+				topic,
+				slug,
+				index: articleIndex,
+				menuSections: undefined,
+			}
+		}
 
 		const articleIndex = await $content(macro, topic, slug, 'index').fetch()
 

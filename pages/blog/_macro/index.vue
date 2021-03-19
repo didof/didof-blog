@@ -29,6 +29,7 @@
 						:description="slotProps.item.shortDescription"
 						:lowRes="slotProps.item.thumbnailLowRes"
 						:highRes="slotProps.item.thumbnailHighRes"
+						:path="slotProps.item.path"
 					/>
 				</template>
 			</Croupier>
