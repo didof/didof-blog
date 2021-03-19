@@ -13,23 +13,23 @@
 			</template>
 		</BaseGrid>
 
-		<Croupier :items="mockItems" :columnsAmount="9" :rowHeight="200">
-			<template v-slot:default="slotProps">
-				<div class="square">
-					{{ slotProps.item.title }}
-				</div>
-			</template>
-		</Croupier>
-
-		<!-- <Shooter v-if="hasShots" :items="shots" :itemHeight="400">
-			<template v-slot:default="slotProps">
-				<div class="card w-300 h-500">
-					<div class="card-header-title">
-						{{ slotProps.item.title }}
+		<section>
+			<Croupier
+				:cards="mockItems"
+				:columnsAmount="6"
+				:rowHeight="200"
+				:isJaunty="true"
+				:mode="'snake'"
+			>
+				<template v-slot:default="slotProps">
+					<div class="card for-croupier">
+						<header class="card-header-title">
+							{{ slotProps.item.title }}
+						</header>
 					</div>
-				</div>
-			</template></Shooter
-		> -->
+				</template>
+			</Croupier>
+		</section>
 	</div>
 </template>
 
@@ -37,7 +37,6 @@
 import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
 import Arrogant from '~/components/layout/Arrogant.vue'
-import Shooter from '~/components/layout/Shooter'
 import Croupier from '~/components/layout/Croupier/Croupier'
 
 import { capitalize } from '~/utils/dataTypes/string'
@@ -48,7 +47,6 @@ export default Vue.extend({
 	components: {
 		TopicCard,
 		Arrogant,
-		Shooter,
 		Croupier,
 	},
 	async asyncData({ $content, params }) {
@@ -76,7 +74,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
-			mockItems: new Array(27).fill({ title: '' }),
+			mockItems: new Array(36).fill({ title: 'test' }),
 		}
 	},
 	computed: {
@@ -99,12 +97,16 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.square {
-	width: 100%;
-	height: 100%;
-	border: 1px solid teal;
-	border-radius: 10px;
-	padding: 10px;
-	background-color: yellowgreen;
+section {
+	margin: 20px;
+	width: 80%;
+}
+
+.card.for-croupier {
+	width: 90%;
+	height: 90%;
+	border: 1px solid #ccc;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper">
+	<div ref="wrapper" v-observe="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -9,6 +9,7 @@
 				v-for="(item, index) in chunk"
 				:key="`croupier-item-${index}`"
 				:style="itemStyle"
+				class="item"
 			>
 				<slot :item="item"></slot>
 			</div>
@@ -18,39 +19,56 @@
 
 <script>
 import Vue from 'vue'
+import { reverse } from '~/utils/HTMLcollection'
+import { isEven } from '~/utils/bitwise'
+import { splitInChunks } from '~/utils/dataTypes/array'
+import { getRandomInt } from '~/utils/randomInt'
 
-const splitArrayInChunks = (array, chunkLength) => {
-	const copy = [...array]
-	const chunks = []
-
-	while (copy.length) {
-		chunks.push(copy.splice(0, chunkLength))
-	}
-
-	return chunks
-}
+// TODO il deck si sposta da sinistra verso destra (sai il numero di carte e quanto ci mette ogni carta, quindi sai quanto ci mette il deck)
 
 export default Vue.extend({
 	name: 'croupier',
 	props: {
-		items: {
+		cards: {
 			type: Array,
 			require: true,
 		},
 		columnsAmount: {
 			type: Number,
-			default: 9,
+			require: true,
 		},
 		rowHeight: {
 			type: Number,
 			require: true,
 		},
+		cardVelocity: {
+			type: Number,
+			default: 500,
+		},
+		cardDelay: {
+			type: Number,
+			default: 100,
+		},
+		mode: {
+			type: String,
+			default: 'row',
+		},
+		isJaunty: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	data() {
 		return {
+			hasMounted: false,
 			chunks: [],
 			columnWidth: null,
+			// matrix: [],
+			cardsElements: [],
 		}
+	},
+	created() {
+		this.chunks = splitInChunks(this.cards, this.columnsAmount)
 	},
 	mounted() {
 		const { wrapper } = this.$refs
@@ -58,33 +76,104 @@ export default Vue.extend({
 		this.columnWidth = width / this.columnsAmount
 
 		this.stackDeck()
+
+		this.hasMounted = true
 	},
 	computed: {
 		itemStyle() {
 			return {
+				opacity: this.hasMounted ? 1 : 0,
+				boxShadow: 'none',
 				width: `${this.columnWidth}px`,
 				height: `${this.rowHeight}px`,
+			}
+		},
+		distributeMode() {
+			switch (this.mode) {
+				case 'rows':
+				case 'default':
+				default:
+					return this.distributeCardsInRows
+				case 'snake':
+					return this.distributeCardsAsSnake
 			}
 		},
 	},
 	methods: {
 		stackDeck() {
-			const chunksElements = this.$vnode.elm.children
+			const chunks = this.$vnode.elm.children
 
-			chunksElements.forEach((chunk, ir) => {
-				const column = chunk.children
-				let cardNumber = 0
+			let cardNumber = 0
+			chunks.forEach((row, ir) => {
+				const column = row.children
+				// let matrixRow = []
 				column.forEach((element, ic) => {
-					const x = ic * this.columnWidth
-					const y = ir * this.rowHeight + cardNumber
-					element.style.transform = `translateX(-${x}px) translateY(-${y}px)`
+					const x = ic * this.columnWidth + 30
+					const y = ir * this.rowHeight + cardNumber + 50
+
+					let transformation = `translateX(-${x}px) translateY(-${y}px)`
+
+					transformation = this._addTilt(transformation)
+
+					element.style.transform = transformation
 					cardNumber++
+					this.cardsElements.push(element)
+					// matrixRow.push([x, y])
 				})
+				// this.matrix.push(matrixRow)
 			})
 		},
-	},
-	created() {
-		this.chunks = splitArrayInChunks(this.items, this.columnsAmount)
+		distributeCardsInRows() {
+			this.cardsElements.forEach((element, index) => {
+				let elementDelay = index * this.cardDelay
+				element.style.transition = `transform ${this.cardVelocity}ms ease-in-out ${elementDelay}ms`
+
+				let transformation = 'translateX(0px) translateY(0px)'
+
+				transformation = this._addTilt(transformation)
+
+				element.style.transform = transformation
+			})
+
+			if (this.isJaunty) {
+			}
+		},
+		distributeCardsAsSnake() {
+			const rows = this.$vnode.elm.children
+
+			rows.forEach((row, ir) => {
+				const rowDelay = ir * this.columnsAmount
+				let rowContent = row.children
+
+				if (!isEven(ir)) rowContent = reverse(rowContent)
+
+				this._distributeRowContent(rowContent, rowDelay)
+			})
+		},
+		_distributeRowContent(rowContent, rowDelay) {
+			let transformation = `translateX(0px) translateY(0px)`
+
+			rowContent.forEach((element, ic) => {
+				let elementDelay = (rowDelay + ic) * this.cardDelay
+
+				element.style.transition = `transform ${this.cardVelocity}ms ease-in-out ${elementDelay}ms`
+
+				transformation = this._addTilt(transformation)
+
+				element.style.transform = transformation
+			})
+		},
+		_addTilt(transformation) {
+			if (this.isJaunty) {
+				const useJaunty = Math.random()
+				if (useJaunty > 0.7) {
+					let tilt = getRandomInt(0, 3)
+					if (useJaunty > Math.random()) tilt = -tilt
+					transformation += ` rotateZ(${tilt}deg)`
+				}
+			}
+			return transformation
+		},
 	},
 })
 </script>
@@ -93,6 +182,12 @@ export default Vue.extend({
 .flex {
 	display: flex;
 	justify-content: flex-start;
+	align-items: center;
+}
+
+.item {
+	display: flex;
+	justify-content: center;
 	align-items: center;
 }
 </style>
