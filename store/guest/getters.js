@@ -1,6 +1,8 @@
 export default {
 	hasRenamed(state) {
-		console.log('yop', state)
 		return state.hasRenamed
+	},
+	name(state) {
+		return state.name
 	},
 }

@@ -19,6 +19,7 @@ export default {
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
+		{ src: '~/plugins/vuex/persistedState.client.js' },
 		'~plugins/registerBaseComponents.js',
 		'~/plugins/directives/animateEnter.client.js',
 		'~/plugins/directives/cursor.client.js',

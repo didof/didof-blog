@@ -6,18 +6,13 @@
 			aria-label="main navigation"
 		>
 			<div class="navbar-brand">
-				<a class="navbar-item" href="/">
-					<img src="~assets/buefy.png" alt="Buefy" height="28" />
-				</a>
-
-				<div class="navbar-burger">
-					<span />
-					<span />
-					<span />
-				</div>
+				<NuxtLink to="/blog"><h1 class="title">Blog</h1></NuxtLink>
 			</div>
 		</nav>
 
+		<NuxtLink :to="'/blog'">blog</NuxtLink>
+
+		{{ test }} {{ firstTime }}
 		<div class="container is-fluid">
 			<nuxt />
 		</div>
@@ -26,24 +21,24 @@
 
 <script>
 export default {
-	data() {
-		return {
-			items: [
-				{
-					title: 'Home',
-					icon: 'home',
-					to: { name: 'index' },
-				},
-				{
-					title: 'Inspire',
-					icon: 'lightbulb',
-					to: { name: 'inspire' },
-				},
-			],
-		}
+	computed: {
+		test() {
+			return this.$store.getters['guest/name']
+		},
+		firstTime() {
+			return this.$store.getters['guest/hasRenamed']
+		},
 	},
-	created() {
+	mounted() {
+		if (process.server) return
+
 		const hasRenamed = this.$store.getters['guest/hasRenamed']
+
+		if (!hasRenamed) {
+			const newName = prompt('gimme new name')
+			this.$store.dispatch({ type: 'guest/rename', payload: newName })
+			this.$store.dispatch({ type: 'guest/hasRenamed' })
+		}
 	},
 }
 </script>
