@@ -13,11 +13,13 @@ const animateObserver = (type, modifier) => {
 	})
 }
 
-Vue.directive('animate-enter', (el, binding, vnode) => {
-	el.classList.add('will-animate')
-	const observer = animateObserver(
-		binding.arg,
-		Object.keys(binding.modifiers)[0]
-	)
-	observer.observe(el)
+Vue.directive('animate-enter', {
+	bind: (el, binding) => {
+		el.classList.add('will-animate')
+		const observer = animateObserver(
+			binding.arg,
+			Object.keys(binding.modifiers)[0]
+		)
+		observer.observe(el)
+	},
 })

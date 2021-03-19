@@ -34,6 +34,8 @@
 				</template>
 			</Croupier>
 		</section>
+
+		{{ savedReadings }}
 	</div>
 </template>
 
@@ -89,6 +91,9 @@ export default Vue.extend({
 		},
 		hasShots() {
 			return Boolean(this.shots.length)
+		},
+		savedReadings() {
+			return this.$store.getters['guest/savedReadings']
 		},
 	},
 	methods: {

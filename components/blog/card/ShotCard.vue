@@ -95,7 +95,7 @@ export default Vue.extend({
 			})
 		},
 		onHeartIconClick() {
-			console.log('heart')
+			this.$store.dispatch('guest/saveReading', this.path)
 		},
 	},
 })
