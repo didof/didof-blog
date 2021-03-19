@@ -26,7 +26,9 @@
 						class="for-croupier"
 						:width="slotProps.columnWidth"
 						:title="slotProps.item.title"
-						:description="slotProps.item.description.short"
+						:description="slotProps.item.shortDescription"
+						:lowRes="slotProps.item.thumbnailLowRes"
+						:highRes="slotProps.item.thumbnailHighRes"
 					/>
 				</template>
 			</Croupier>
@@ -58,19 +60,28 @@ export default Vue.extend({
 			.only('path')
 			.fetch()
 
-		const groupedTopics = groupWithAmount(articlesPaths, 'topic')
+		const topics = groupWithAmount(articlesPaths, 'topic')
 
-		const shotsThumbnailContent = await $content(macro, { deep: true })
+		const shots = await $content(macro, { deep: true })
 			.where({
 				dir: { $eq: `/${macro}/_shots` },
 			})
-			.only(['title', 'description', 'color', 'thumbnail', 'slug'])
+			.only([
+				'title',
+				'shortDescription',
+				'color',
+				'thumbnailLowRes',
+				'thumbnailHighRes',
+				'slug',
+			])
 			.fetch()
 
+		console.log(shots)
+
 		return {
-			macro: macro,
-			topics: groupedTopics,
-			shots: shotsThumbnailContent,
+			macro,
+			topics,
+			shots,
 		}
 	},
 	computed: {

@@ -1,15 +1,10 @@
 ---
-title: test1
-description:
-  short: Learning how to use this new custom hook of mine
-  long: Learning how to use this new custom hook of mine
+title: Vue is Cool!
+shortDescription: And here 10 reasons why
+description: Learning how to use this new custom hook of mine
 color: red
-thumbnail:
-  img: happy_fingers.jpg
-  alt: some happy fingers
-cover:
-  img: happy_fingers.jpg
-  alt: some happy fingers
+thumbnailLowRes: monke/monke1.png
+thumbnailHighRes: monke/monke2.png
 author:
   name: Francesco
   bio: Enthusiast

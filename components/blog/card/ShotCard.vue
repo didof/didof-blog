@@ -34,11 +34,11 @@ export default Vue.extend({
 			type: Number,
 			require: true,
 		},
-		lowSrc: {
+		lowRes: {
 			type: String,
 			require: true,
 		},
-		highSrc: {
+		highRes: {
 			type: String,
 			require: true,
 		},
@@ -49,6 +49,14 @@ export default Vue.extend({
 		description: {
 			type: String,
 			require: true,
+		},
+	},
+	computed: {
+		lowSrc() {
+			return require(`~/assets/images/${this.lowRes}`)
+		},
+		highSrc() {
+			return require(`~/assets/images/${this.highRes}`)
 		},
 	},
 })
