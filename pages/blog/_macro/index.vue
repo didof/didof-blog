@@ -13,7 +13,15 @@
 			</template>
 		</BaseGrid>
 
-		<Shooter :items="shots" :itemHeight="400">
+		<Croupier :items="mockItems" :columnsAmount="9" :rowHeight="200">
+			<template v-slot:default="slotProps">
+				<div class="square">
+					{{ slotProps.item.title }}
+				</div>
+			</template>
+		</Croupier>
+
+		<!-- <Shooter v-if="hasShots" :items="shots" :itemHeight="400">
 			<template v-slot:default="slotProps">
 				<div class="card w-300 h-500">
 					<div class="card-header-title">
@@ -21,7 +29,7 @@
 					</div>
 				</div>
 			</template></Shooter
-		>
+		> -->
 	</div>
 </template>
 
@@ -30,6 +38,7 @@ import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
 import Arrogant from '~/components/layout/Arrogant.vue'
 import Shooter from '~/components/layout/Shooter'
+import Croupier from '~/components/layout/Croupier/Croupier'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
@@ -40,6 +49,7 @@ export default Vue.extend({
 		TopicCard,
 		Arrogant,
 		Shooter,
+		Croupier,
 	},
 	async asyncData({ $content, params }) {
 		const { macro } = params
@@ -64,9 +74,17 @@ export default Vue.extend({
 			shots: shotsThumbnailContent,
 		}
 	},
+	data() {
+		return {
+			mockItems: new Array(27).fill({ title: '' }),
+		}
+	},
 	computed: {
 		capitalizedMacro() {
 			return capitalize(this.macro)
+		},
+		hasShots() {
+			return Boolean(this.shots.length)
 		},
 	},
 	methods: {
@@ -79,3 +97,14 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style scoped>
+.square {
+	width: 100%;
+	height: 100%;
+	border: 1px solid teal;
+	border-radius: 10px;
+	padding: 10px;
+	background-color: yellowgreen;
+}
+</style>
