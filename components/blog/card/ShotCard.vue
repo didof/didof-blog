@@ -1,19 +1,23 @@
 <template>
 	<div class="card" :style="cardStyle" @click="onCardClick" v-cursor>
 		<header class="card-header">
-			<p class="card-header-title">
+			<h6 class="card-header-title">
 				{{ title }}
-			</p>
-			<HeartIcon />
+			</h6>
+			<div
+				class="card-header-icon"
+				aria-label="save"
+				@click.stop="onHeartIconClick"
+			>
+				<HeartIcon />
+			</div>
 		</header>
-		<div class="card-image">
-			<DeferredImage
-				:width="width"
-				class="image is-4by3"
-				:lowSrc="lowSrc"
-				:highSrc="highSrc"
-			/>
-		</div>
+		<DeferredImage
+			:width="width"
+			class="card-image image is-4by3"
+			:lowSrc="lowSrc"
+			:highSrc="highSrc"
+		/>
 
 		<div class="card-content">
 			<div class="content">
@@ -89,6 +93,9 @@ export default Vue.extend({
 					slug,
 				},
 			})
+		},
+		onHeartIconClick() {
+			console.log('heart')
 		},
 	},
 })
