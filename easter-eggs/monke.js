@@ -34,7 +34,6 @@ const monke = (() => {
 	}
 
 	const unregister = () => {
-		console.log('monkey goodbay')
 		document.removeEventListener('keydown', addKey)
 	}
 

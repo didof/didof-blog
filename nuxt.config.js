@@ -1,3 +1,5 @@
+import path from 'path'
+
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
@@ -61,5 +63,9 @@ export default {
 	content: {},
 
 	// Build Configuration: https://go.nuxtjs.dev/config-build
-	build: {},
+	build: {
+		extend(config) {
+			config.resolve.alias['~easter-eggs'] = path.join(__dirname, 'easter-eggs')
+		},
+	},
 }

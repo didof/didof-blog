@@ -1,6 +1,12 @@
 <template>
 	<div>
-		<h1 class="title" v-animate-enter:slide.left>Blog</h1>
+		<section class="hero is-link is-medium">
+			<div class="hero-body">
+				<h1 class="title" v-animate-enter:slide.top>didof / blog</h1>
+				<h2 class="subtitle" v-animate-enter:slide.bottom>Love it!</h2>
+			</div>
+		</section>
+		<h1 class="title">Blog</h1>
 
 		<BaseGrid :items="macros">
 			<template v-slot:default="slotProps">
@@ -38,9 +44,6 @@ export default Vue.extend({
 				name: 'blog-macro',
 				params: { macro: macroSlug },
 			})
-		},
-		eureka() {
-			console.log('eureka')
 		},
 	},
 })

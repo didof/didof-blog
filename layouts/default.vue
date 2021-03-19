@@ -10,12 +10,7 @@
 			</div>
 		</nav>
 
-		<NuxtLink :to="'/blog'">blog</NuxtLink>
-
-		{{ test }} {{ firstTime }}
-		<div class="container is-fluid">
-			<nuxt />
-		</div>
+		<nuxt />
 	</div>
 </template>
 
@@ -34,11 +29,11 @@ export default {
 
 		const hasRenamed = this.$store.getters['guest/hasRenamed']
 
-		if (!hasRenamed) {
-			const newName = prompt('gimme new name')
-			this.$store.dispatch({ type: 'guest/rename', payload: newName })
-			this.$store.dispatch({ type: 'guest/hasRenamed' })
-		}
+		// if (!hasRenamed) {
+		// 	const newName = prompt('gimme new name')
+		// 	this.$store.dispatch({ type: 'guest/rename', payload: newName })
+		// 	this.$store.dispatch({ type: 'guest/hasRenamed' })
+		// }
 	},
 }
 </script>
