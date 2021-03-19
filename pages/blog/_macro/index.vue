@@ -15,18 +15,19 @@
 
 		<section>
 			<Croupier
-				:cards="mockItems"
-				:columnsAmount="6"
-				:rowHeight="200"
+				:cards="shots"
+				:columnsAmount="4"
+				:rowHeight="400"
 				:isJaunty="true"
 				:mode="'snake'"
 			>
 				<template v-slot:default="slotProps">
-					<div class="card for-croupier">
-						<header class="card-header-title">
-							{{ slotProps.item.title }}
-						</header>
-					</div>
+					<ShotCard
+						class="for-croupier"
+						:width="slotProps.columnWidth"
+						:title="slotProps.item.title"
+						:description="slotProps.item.description.short"
+					/>
 				</template>
 			</Croupier>
 		</section>
@@ -36,8 +37,8 @@
 <script>
 import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
-import Arrogant from '~/components/layout/Arrogant.vue'
-import Croupier from '~/components/layout/Croupier/Croupier'
+import Croupier from '~/components/layout/Croupier'
+import ShotCard from '~/components/blog/card/ShotCard'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
@@ -46,8 +47,8 @@ export default Vue.extend({
 	name: 'page-blog-macro',
 	components: {
 		TopicCard,
-		Arrogant,
 		Croupier,
+		ShotCard,
 	},
 	async asyncData({ $content, params }) {
 		const { macro } = params
@@ -70,11 +71,6 @@ export default Vue.extend({
 			macro: macro,
 			topics: groupedTopics,
 			shots: shotsThumbnailContent,
-		}
-	},
-	data() {
-		return {
-			mockItems: new Array(13).fill({ title: 'test' }),
 		}
 	},
 	computed: {

@@ -1,6 +1,8 @@
 ---
 title: test1
-description: Learning how to use this new custom hook of mine
+description:
+  short: Learning how to use this new custom hook of mine
+  long: Learning how to use this new custom hook of mine
 color: red
 thumbnail:
   img: happy_fingers.jpg

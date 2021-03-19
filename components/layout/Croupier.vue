@@ -11,7 +11,7 @@
 				:style="itemStyle"
 				class="item"
 			>
-				<slot :item="item"></slot>
+				<slot :item="item" :cardWidth="cardWidth"></slot>
 			</div>
 		</div>
 	</div>
@@ -96,6 +96,9 @@ export default Vue.extend({
 					return this.distributeCardsAsSnake
 			}
 		},
+		cardWidth() {
+			return (this.columnWidth / 10) * 9
+		},
 	},
 	methods: {
 		stackDeck() {
@@ -143,7 +146,7 @@ export default Vue.extend({
 				const rowDelay = ir * this.columnsAmount
 				let rowContent = row.children
 
-				if (!isEven(ir)) rowContent = reverse(rowContent)
+				if (isEven(ir)) rowContent = reverse(rowContent)
 
 				this._distributeRowContent(rowContent, rowDelay)
 			})
@@ -165,7 +168,7 @@ export default Vue.extend({
 			if (this.isJaunty) {
 				const useJaunty = Math.random()
 				if (useJaunty > 0.7) {
-					let tilt = getRandomInt(0, 3)
+					let tilt = getRandomInt(0, 1)
 					if (useJaunty > Math.random()) tilt = -tilt
 					transformation += ` rotateZ(${tilt}deg)`
 				}
