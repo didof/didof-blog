@@ -11,7 +11,11 @@
 				:style="itemStyle"
 				class="item"
 			>
-				<slot :item="item" :cardWidth="cardWidth"></slot>
+				<slot
+					:item="item"
+					:cardWidth="cardWidth"
+					:cardHeight="cardHeight"
+				></slot>
 			</div>
 		</div>
 	</div>
@@ -82,8 +86,7 @@ export default Vue.extend({
 			return {
 				opacity: this.hasMounted ? 1 : 0,
 				boxShadow: 'none',
-				width: `${this.columnWidth}px`,
-				height: `${this.rowHeight}px`,
+				width: `${(this.columnWidth / 10) * 9}px`,
 			}
 		},
 		distributeMode() {
@@ -98,6 +101,9 @@ export default Vue.extend({
 		},
 		cardWidth() {
 			return (this.columnWidth / 10) * 9
+		},
+		cardHeight() {
+			return (this.rowHeight / 10) * 9
 		},
 	},
 	methods: {

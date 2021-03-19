@@ -1,5 +1,5 @@
 <template>
-	<div class="card">
+	<div class="card" :style="cardStyle">
 		<div class="card-image">
 			<DeferredImage
 				:width="width"
@@ -17,6 +17,12 @@
 				{{ description }}
 			</div>
 		</div>
+
+		<footer class="card-footer">
+			<a href="#" class="card-footer-item">Save</a>
+			<a href="#" class="card-footer-item">Edit</a>
+			<a href="#" class="card-footer-item">Delete</a>
+		</footer>
 	</div>
 </template>
 
@@ -31,6 +37,10 @@ export default Vue.extend({
 	},
 	props: {
 		width: {
+			type: Number,
+			require: true,
+		},
+		height: {
 			type: Number,
 			require: true,
 		},
@@ -57,6 +67,12 @@ export default Vue.extend({
 		},
 		highSrc() {
 			return require(`~/assets/images/${this.highRes}`)
+		},
+		cardStyle() {
+			return {
+				height: this.height,
+				width: this.width,
+			}
 		},
 	},
 })

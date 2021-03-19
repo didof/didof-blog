@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container is-fluid">
 		<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
 
 		<BaseGrid :items="topics">
@@ -17,14 +17,14 @@
 			<Croupier
 				:cards="shots"
 				:columnsAmount="4"
-				:rowHeight="400"
+				:rowHeight="500"
 				:isJaunty="true"
 				:mode="'snake'"
 			>
 				<template v-slot:default="slotProps">
 					<ShotCard
-						class="for-croupier"
 						:width="slotProps.columnWidth"
+						:height="slotProps.cardHeight"
 						:title="slotProps.item.title"
 						:description="slotProps.item.shortDescription"
 						:lowRes="slotProps.item.thumbnailLowRes"
@@ -106,14 +106,5 @@ export default Vue.extend({
 <style scoped>
 section {
 	margin: 20px;
-	width: 80%;
-}
-
-.card.for-croupier {
-	width: 90%;
-	height: 90%;
-	border: 1px solid #ccc;
-	box-shadow: none !important;
-	-webkit-box-shadow: none !important;
 }
 </style>
