@@ -11,4 +11,7 @@ export default {
 	removeReading(state, payload) {
 		state.savedReadings.splice(payload, 1)
 	},
+	updateSavedReadingsOrder(state, payload) {
+		state.savedReadings = payload
+	},
 }

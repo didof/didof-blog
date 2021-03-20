@@ -18,4 +18,7 @@ export default {
 		if (Boolean(~foundIndex)) commit('removeReading', foundIndex)
 		else commit('saveReading', payload)
 	},
+	updateSavedReadingsOrder({ commit }, payload) {
+		commit('updateSavedReadingsOrder', payload)
+	},
 }

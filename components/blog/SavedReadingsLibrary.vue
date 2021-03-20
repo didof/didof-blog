@@ -23,7 +23,7 @@ export default Vue.extend({
 				return this.$store.getters['guest/savedReadings']
 			},
 			set(value) {
-				this.$store.dispatch('guest/saveReading', 'test')
+				this.$store.dispatch('guest/updateSavedReadingsOrder', value)
 			},
 		},
 	},
