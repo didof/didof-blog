@@ -1,78 +1,73 @@
+import { getRandomInt } from '~/utils/randomInt'
 import Vue from 'vue'
 
-const DATA_DIRECTIVE_LABEL = 'localized-hover'
+const states = {}
 
-Vue.directive(
-	'localized-hover',
-	(() => {
-		const state = {}
+const getIdAndElement = path => {
+	let elementId
+	const element = path.find(parentElement => {
+		const { dataset } = parentElement
+		if (!dataset) return false
+		const { directive } = dataset
+		if (!directive) return false
+		const [name, id] = directive.split(':')
+		if (name === 'localized-hover') {
+			elementId = id
+			return true
+		} else return false
+	})
+	return [elementId, element]
+}
 
-		const getMousePositionOnGrid = () => {}
+const getGridPosition = (offset, set) => {
+	switch (true) {
+		case offset < set[0]:
+			return 0
+		case offset < set[1]:
+			return 1
+		case offset < set[2]:
+			return 2
+	}
+}
 
-		// 0 -> +15
-		// 1 -> 0
-		// 2 -> -15
+const localizedHover = event => {
+	const { offsetX, offsetY } = event
 
-		const localizedHover = event => {
-			const { offsetX, offsetY } = event
+	const [id, element] = getIdAndElement(event.path)
 
-			const gridPosition = []
+	const { columns, rows } = states[id]
 
-			switch (true) {
-				case offsetX < state.columns[0]:
-					gridPosition.push(0)
-					break
-				case offsetX < state.columns[1]:
-					gridPosition.push(1)
-					break
-				case offsetX < state.columns[2]:
-					gridPosition.push(2)
-					break
-			}
+	const gridPosition = []
 
-			switch (true) {
-				case offsetY < state.rows[0]:
-					gridPosition.push(0)
-					break
-				case offsetY < state.rows[1]:
-					gridPosition.push(1)
-					break
-				case offsetY < state.rows[2]:
-					gridPosition.push(2)
-					break
-			}
+	gridPosition[0] = getGridPosition(offsetX, columns)
+	gridPosition[1] = getGridPosition(offsetY, rows)
 
-			const rotation = {
-				0: -15,
-				1: 0,
-				2: 15,
-			}
+	const rotation = {
+		0: -10,
+		1: 0,
+		2: 10,
+	}
 
-			console.log(
-				'x',
-				rotation[gridPosition[0]],
-				'y',
-				rotation[gridPosition[1]]
-			)
+	const rotateX = `rotateX(${rotation[gridPosition[1]]}deg)`
+	const rotateY = `rotateY(${rotation[gridPosition[0]]}deg)`
 
-			state.element.style.transform = `rotateX(${
-				rotation[gridPosition[1]]
-			}deg) rotateY(${rotation[gridPosition[0]]}deg)`
+	element.style.transform = `${rotateX} ${rotateY}`
+}
+
+Vue.directive('localized-hover', {
+	bind(el) {
+		const id = getRandomInt(0, 100)
+		const { width, height } = el.getBoundingClientRect()
+		el.setAttribute('data-directive', `localized-hover:${id}`)
+		el.style.transition = 'all 0.3s ease-in-out 0.1s'
+		states[id] = {
+			columns: [width / 3, (width / 3) * 2, width],
+			rows: [height / 3, (height / 3) * 2, height],
 		}
 
-		return {
-			bind(el) {
-				const { width, height } = el.getBoundingClientRect()
-				state.columns = [width / 3, (width / 3) * 2, width]
-				state.rows = [height / 3, (height / 3) * 2, height]
-				el.style.transition = 'all 1s ease-in-out'
-				state.element = el
-
-				el.addEventListener('mousemove', localizedHover)
-			},
-			unbind(el) {
-				el.removeEventListener('mousemove', localizedHover)
-			},
-		}
-	})()
-)
+		el.addEventListener('mousemove', localizedHover)
+	},
+	unbind(el) {
+		el.removeEventListener('mousemove', localizedHover)
+	},
+})

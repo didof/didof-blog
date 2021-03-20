@@ -14,6 +14,8 @@
 			</template>
 		</BaseGrid>
 
+		<article v-localized-hover></article>
+
 		<section>
 			<Croupier
 				:cards="shots"
@@ -119,5 +121,11 @@ export default Vue.extend({
 <style scoped>
 section {
 	margin: 20px;
+}
+
+article {
+	width: 50px;
+	height: 50px;
+	background-color: red;
 }
 </style>
