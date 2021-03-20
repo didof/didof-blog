@@ -6,7 +6,6 @@
 				@update="onUpdate"
 				:move="checkMove"
 				v-bind="dragOptions"
-				ghost-class="ghost"
 			>
 				<transition-group name="shelfs">
 					<SavedReadingShelf
@@ -54,8 +53,7 @@ export default Vue.extend({
 		},
 		dragOptions() {
 			return {
-				animation: 200,
-				group: 'description',
+				animation: 300,
 				disabled: false,
 				ghostClass: 'ghost',
 			}
@@ -65,8 +63,8 @@ export default Vue.extend({
 		onUpdate(event) {
 			// toaster
 		},
-		checkMove(event) {
-			const { index } = event.draggedContext
+		checkMove({ draggedContext }) {
+			const { index } = draggedContext
 			const { slug } = this.savedReadings[index]
 			return slug === this.expandedSlug
 		},
@@ -109,5 +107,9 @@ div:hover {
 
 .ghost {
 	transform: translateZ(50px) rotateY(2deg);
+}
+
+.sortable-chosen {
+	transform: translateZ(10px);
 }
 </style>
