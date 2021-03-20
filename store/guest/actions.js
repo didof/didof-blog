@@ -1,3 +1,6 @@
+import SavedReading from '~/entities/blog/SavedReading'
+import { isInstanceOf } from '~/utils/guards'
+
 export default {
 	rename(context, payload) {
 		context.commit('rename', payload)
@@ -6,8 +9,13 @@ export default {
 		context.commit('hasRenamed')
 	},
 	saveReading({ state, commit }, payload) {
-		const index = state.savedReadings.indexOf(payload)
-		if (Boolean(~index)) commit('removeReading', index)
+		if (!isInstanceOf(payload, SavedReading)) return
+
+		const foundIndex = state.savedReadings.findIndex(savedReading => {
+			return savedReading.slug === payload.slug
+		})
+
+		if (Boolean(~foundIndex)) commit('removeReading', foundIndex)
 		else commit('saveReading', payload)
 	},
 }

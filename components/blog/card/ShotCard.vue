@@ -32,6 +32,7 @@
 import Vue from 'vue'
 import DeferredImage from '~/components/image/DeferredImage'
 import { HeartIcon } from '~/components/icons'
+import { SavedReading } from '~/entities'
 
 export default Vue.extend({
 	name: 'shot-card',
@@ -96,7 +97,12 @@ export default Vue.extend({
 			})
 		},
 		onHeartIconClick() {
-			this.$store.dispatch('guest/saveReading', this.path)
+			const savedReading = new SavedReading(
+				this.path,
+				this.title,
+				this.description
+			)
+			this.$store.dispatch('guest/saveReading', savedReading)
 		},
 	},
 })

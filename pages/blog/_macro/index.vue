@@ -14,36 +14,29 @@
 			</template>
 		</BaseGrid>
 
-		<section>
-			<Croupier
-				:cards="shots"
-				:columnsAmount="4"
-				:rowHeight="500"
-				:isJaunty="true"
-				:mode="'snake'"
-			>
-				<template v-slot:default="slotProps">
-					<ShotCard
-						:width="slotProps.cardWidth"
-						:height="slotProps.cardHeight"
-						:title="slotProps.item.title"
-						:description="slotProps.item.shortDescription"
-						:lowRes="slotProps.item.thumbnailLowRes"
-						:highRes="slotProps.item.thumbnailHighRes"
-						:path="slotProps.item.path"
-					/>
-				</template>
-			</Croupier>
-		</section>
-
-		<div>
-			{{ savedReadings }}
-			<p>
-				mostra un quadrato con scritto Guestname's reading list. Cliccando sul
-				nome diventa un input field e permette di aggiornare il nome. sotto ci
-				sono le cose da leggere. Possibile rimuoverle, sortarle, cliccando si va
-				al blog post
-			</p>
+		<div class="columns">
+			<section class="column is-9">
+				<Croupier
+					:cards="shots"
+					:columnsAmount="4"
+					:rowHeight="500"
+					:isJaunty="true"
+					:mode="'snake'"
+				>
+					<template v-slot:default="slotProps">
+						<ShotCard
+							:width="slotProps.cardWidth"
+							:height="slotProps.cardHeight"
+							:title="slotProps.item.title"
+							:description="slotProps.item.shortDescription"
+							:lowRes="slotProps.item.thumbnailLowRes"
+							:highRes="slotProps.item.thumbnailHighRes"
+							:path="slotProps.item.path"
+						/>
+					</template>
+				</Croupier>
+			</section>
+			<SavedReadingsLibrary />
 		</div>
 	</div>
 </template>
@@ -53,6 +46,7 @@ import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
 import Croupier from '~/components/layout/Croupier'
 import ShotCard from '~/components/blog/card/ShotCard'
+import SavedReadingsLibrary from '~/components/blog/SavedReadingsLibrary'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
@@ -63,6 +57,7 @@ export default Vue.extend({
 		TopicCard,
 		Croupier,
 		ShotCard,
+		SavedReadingsLibrary,
 	},
 	async asyncData({ $content, params }) {
 		const { macro } = params
