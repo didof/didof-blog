@@ -15,18 +15,18 @@
 		</BaseGrid>
 
 		<div class="columns">
-			<section class="column is-9">
+			<section class="column">
 				<Croupier
 					:cards="shots"
-					:columnsAmount="4"
-					:rowHeight="500"
+					:columnsAmount="5"
+					:rowHeight="400"
 					:isJaunty="true"
 					:mode="'snake'"
 				>
 					<template v-slot:default="slotProps">
 						<ShotCard
 							:width="slotProps.cardWidth"
-							:height="slotProps.cardHeight"
+							:height="400"
 							:title="slotProps.item.title"
 							:description="slotProps.item.shortDescription"
 							:lowRes="slotProps.item.thumbnailLowRes"

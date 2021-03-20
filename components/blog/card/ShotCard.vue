@@ -1,9 +1,7 @@
 <template>
 	<div class="card" :style="cardStyle" @click="onCardClick" v-cursor>
 		<header class="card-header">
-			<h6 class="card-header-title">
-				{{ title }}
-			</h6>
+			<h6 class="card-header-title">{{ title }}</h6>
 			<div
 				class="card-header-icon"
 				aria-label="save"
@@ -15,7 +13,8 @@
 
 		<DeferredImage
 			:width="width"
-			class="card-image image is-4by3"
+			:height="height * 0.7"
+			class="card-image image"
 			:lowSrc="lowSrc"
 			:highSrc="highSrc"
 		/>

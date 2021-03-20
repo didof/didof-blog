@@ -1,7 +1,7 @@
 <template>
 	<aside>
 		<Draggable v-model="savedReadings" @update="onUpdate" v-bind="dragOptions">
-			<transition-group>
+			<transition-group name="shelfs">
 				<SavedReadingShelf
 					v-for="reading in savedReadings"
 					:key="reading.slug"
@@ -63,3 +63,17 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style scoped>
+.shelfs-enter-active,
+.shelfs-leave-active {
+	transition: transform 0.5s, opacity 0.5s;
+	transform: translateX(0);
+	opacity: 1;
+}
+.shelfs-enter,
+.shelfs-leave-to {
+	opacity: 0;
+	transform: translateX(30px);
+}
+</style>

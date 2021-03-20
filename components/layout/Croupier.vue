@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper" v-observe="distributeMode">
+	<div ref="wrapper" @click="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -11,11 +11,7 @@
 				:style="itemStyle"
 				class="item"
 			>
-				<slot
-					:item="item"
-					:cardWidth="cardWidth"
-					:cardHeight="cardHeight"
-				></slot>
+				<slot :item="item" :cardWidth="columnWidth"></slot>
 			</div>
 		</div>
 	</div>
@@ -65,7 +61,6 @@ export default Vue.extend({
 			hasMounted: false,
 			chunks: [],
 			columnWidth: null,
-			// matrix: [],
 			cardsElements: [],
 		}
 	},
@@ -76,6 +71,8 @@ export default Vue.extend({
 		const { wrapper } = this.$refs
 		const { width } = wrapper.getBoundingClientRect()
 		this.columnWidth = width / this.columnsAmount
+
+		console.log(this.columnWidth)
 
 		this.stackDeck()
 
@@ -99,12 +96,6 @@ export default Vue.extend({
 					return this.distributeCardsAsSnake
 			}
 		},
-		cardWidth() {
-			return this.columnWidth * 0.6
-		},
-		cardHeight() {
-			return this.rowHeight * 0.6
-		},
 	},
 	methods: {
 		stackDeck() {
@@ -113,10 +104,10 @@ export default Vue.extend({
 			let cardNumber = 0
 			chunks.forEach((row, ir) => {
 				const column = row.children
-				// let matrixRow = []
 				column.forEach((element, ic) => {
-					const x = ic * this.columnWidth + 30
-					const y = ir * this.rowHeight + cardNumber + 50
+					const x = ic * this.columnWidth
+					const y = ir * this.rowHeight + cardNumber
+					console.log(element, ir, ic)
 
 					let transformation = `translateX(-${x}px) translateY(-${y}px)`
 
@@ -125,9 +116,7 @@ export default Vue.extend({
 					element.style.transform = transformation
 					cardNumber++
 					this.cardsElements.push(element)
-					// matrixRow.push([x, y])
 				})
-				// this.matrix.push(matrixRow)
 			})
 		},
 		distributeCardsInRows() {
@@ -188,7 +177,7 @@ export default Vue.extend({
 <style scoped>
 .flex {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-around;
 	align-items: center;
 }
 
