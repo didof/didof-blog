@@ -43,15 +43,20 @@ const localizedHover = event => {
 	gridPosition[1] = getGridPosition(offsetY, rows)
 
 	const rotation = {
-		0: -10,
+		0: -15,
 		1: 0,
-		2: 10,
+		2: 15,
 	}
 
 	const rotateX = `rotateX(${rotation[gridPosition[1]]}deg)`
 	const rotateY = `rotateY(${rotation[gridPosition[0]]}deg)`
 
 	element.style.transform = `${rotateX} ${rotateY}`
+}
+
+const reset = event => {
+	const [_, element] = getIdAndElement(event.path)
+	element.style.transform = 'rotateX(0) rotateY(0)'
 }
 
 Vue.directive('localized-hover', {
@@ -66,8 +71,11 @@ Vue.directive('localized-hover', {
 		}
 
 		el.addEventListener('mousemove', localizedHover)
+		el.addEventListener('mouseleave', reset)
 	},
 	unbind(el) {
+		el.removeAttribute('data-directive')
 		el.removeEventListener('mousemove', localizedHover)
+		el.addEventListener('mouseleave', reset)
 	},
 })
