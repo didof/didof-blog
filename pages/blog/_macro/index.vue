@@ -14,8 +14,6 @@
 			</template>
 		</BaseGrid>
 
-		<article v-localized-hover></article>
-
 		<section>
 			<Croupier
 				:cards="shots"
