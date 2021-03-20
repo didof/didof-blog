@@ -100,10 +100,10 @@ export default Vue.extend({
 			}
 		},
 		cardWidth() {
-			return (this.columnWidth / 10) * 9
+			return this.columnWidth * 0.6
 		},
 		cardHeight() {
-			return (this.rowHeight / 10) * 9
+			return this.rowHeight * 0.6
 		},
 	},
 	methods: {

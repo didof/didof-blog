@@ -8,8 +8,8 @@
 import monke from '~/easter-eggs/monke'
 
 export default {
-	name: 'home-page',
-	layout: 'home-page',
+	name: 'homepage',
+	layout: 'homepage',
 	beforeMount() {
 		monke.register()
 	},

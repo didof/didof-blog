@@ -9,6 +9,7 @@
 					@card-click="onTopicCardClick(slotProps.item.topic)"
 					v-animate-enter:slide.bottom
 					v-cursor
+					v-localized-hover
 				/>
 			</template>
 		</BaseGrid>
@@ -23,7 +24,7 @@
 			>
 				<template v-slot:default="slotProps">
 					<ShotCard
-						:width="slotProps.columnWidth"
+						:width="slotProps.cardWidth"
 						:height="slotProps.cardHeight"
 						:title="slotProps.item.title"
 						:description="slotProps.item.shortDescription"
@@ -35,7 +36,15 @@
 			</Croupier>
 		</section>
 
-		{{ savedReadings }}
+		<div>
+			{{ savedReadings }}
+			<p>
+				mostra un quadrato con scritto Guestname's reading list. Cliccando sul
+				nome diventa un input field e permette di aggiornare il nome. sotto ci
+				sono le cose da leggere. Possibile rimuoverle, sortarle, cliccando si va
+				al blog post
+			</p>
+		</div>
 	</div>
 </template>
 

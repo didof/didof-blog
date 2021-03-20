@@ -26,6 +26,7 @@ export default {
 		'~/plugins/directives/animateEnter.client.js',
 		'~/plugins/directives/cursor.client.js',
 		'~/plugins/directives/observe.client.js',
+		'~/plugins/directives/localizedHover.client.js',
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

@@ -12,6 +12,7 @@
 				<HeartIcon />
 			</div>
 		</header>
+
 		<DeferredImage
 			:width="width"
 			class="card-image image is-4by3"
@@ -77,8 +78,8 @@ export default Vue.extend({
 		},
 		cardStyle() {
 			return {
-				height: this.height,
-				width: this.width,
+				height: `${this.height}px`,
+				width: `${this.width}px`,
 			}
 		},
 	},
