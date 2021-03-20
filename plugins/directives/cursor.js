@@ -39,10 +39,18 @@ const VALID_CURSOR_TYPES = [
 	'zoom-out',
 ]
 
-Vue.directive('cursor', {
-	bind: (el, binding) => {
-		const cursorType = binding.arg || 'pointer'
+Vue.directive('cursor', (el, { arg, modifiers, value = true }) => {
+	const fallbackType = Object.keys(modifiers)[0]
+	const cursorType = arg || 'pointer'
+	if (!fallbackType) {
 		if (VALID_CURSOR_TYPES.includes(cursorType)) el.style.cursor = cursorType
 		else console.warn(`[v-cursor] The value ${cursorType} is not recognized`)
-	},
+	} else {
+		if (value) {
+			if (VALID_CURSOR_TYPES.includes(cursorType)) el.style.cursor = cursorType
+		} else {
+			if (VALID_CURSOR_TYPES.includes(cursorType))
+				el.style.cursor = fallbackType
+		}
+	}
 })

@@ -1,18 +1,29 @@
 <template>
 	<aside>
-		<Draggable v-model="savedReadings" @update="onUpdate" v-bind="dragOptions">
-			<transition-group name="shelfs">
-				<SavedReadingShelf
-					v-for="reading in savedReadings"
-					:key="reading.slug"
-					:title="reading.title"
-					:slug="reading.slug"
-					:is-expanded="expandedSlug === reading.slug"
-					@expand="onExpand"
-					@collapse="onCollapse"
-				/>
-			</transition-group>
-		</Draggable>
+		<div>
+			<Draggable
+				v-model="savedReadings"
+				@update="onUpdate"
+				:move="checkMove"
+				v-bind="dragOptions"
+				ghost-class="ghost"
+			>
+				<transition-group name="shelfs">
+					<SavedReadingShelf
+						v-for="reading in savedReadings"
+						:key="reading.slug"
+						:title="reading.title"
+						:description="reading.description"
+						:macro="reading.macro"
+						:topic="reading.topic"
+						:slug="reading.slug"
+						:is-expanded="expandedSlug === reading.slug"
+						@expand="onExpand"
+						@collapse="onCollapse"
+					/>
+				</transition-group>
+			</Draggable>
+		</div>
 	</aside>
 </template>
 
@@ -52,7 +63,12 @@ export default Vue.extend({
 	},
 	methods: {
 		onUpdate(event) {
-			console.log(event)
+			// toaster
+		},
+		checkMove(event) {
+			const { index } = event.draggedContext
+			const { slug } = this.savedReadings[index]
+			return slug === this.expandedSlug
 		},
 		onExpand(slug) {
 			this.expandedSlug = slug
@@ -67,7 +83,7 @@ export default Vue.extend({
 <style scoped>
 .shelfs-enter-active,
 .shelfs-leave-active {
-	transition: transform 0.5s, opacity 0.5s;
+	transition: transform 0.5s ease-in-out, opacity 0.7s ease-in-out;
 	transform: translateX(0);
 	opacity: 1;
 }
@@ -75,5 +91,23 @@ export default Vue.extend({
 .shelfs-leave-to {
 	opacity: 0;
 	transform: translateX(30px);
+}
+
+aside {
+	perspective: 800px;
+}
+
+div {
+	transition: 0.8s ease-in-out;
+	transform-style: preserve-3d;
+	transform: rotateY(-5deg);
+}
+
+div:hover {
+	transform: rotateY(0);
+}
+
+.ghost {
+	transform: translateZ(50px) rotateY(2deg);
 }
 </style>
