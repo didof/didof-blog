@@ -1,11 +1,15 @@
 <template>
 	<aside>
-		<Draggable v-model="savedReadings">
+		<Draggable v-model="savedReadings" @update="onUpdate" v-bind="dragOptions">
 			<transition-group>
 				<SavedReadingShelf
 					v-for="reading in savedReadings"
 					:key="reading.slug"
 					:title="reading.title"
+					:slug="reading.slug"
+					:is-expanded="expandedSlug === reading.slug"
+					@expand="onExpand"
+					@collapse="onCollapse"
 				/>
 			</transition-group>
 		</Draggable>
@@ -23,6 +27,11 @@ export default Vue.extend({
 		Draggable,
 		SavedReadingShelf,
 	},
+	data() {
+		return {
+			expandedSlug: null,
+		}
+	},
 	computed: {
 		savedReadings: {
 			get() {
@@ -31,6 +40,25 @@ export default Vue.extend({
 			set(value) {
 				this.$store.dispatch('guest/updateSavedReadingsOrder', value)
 			},
+		},
+		dragOptions() {
+			return {
+				animation: 200,
+				group: 'description',
+				disabled: false,
+				ghostClass: 'ghost',
+			}
+		},
+	},
+	methods: {
+		onUpdate(event) {
+			console.log(event)
+		},
+		onExpand(slug) {
+			this.expandedSlug = slug
+		},
+		onCollapse(slug) {
+			this.expandedSlug = null
 		},
 	},
 })

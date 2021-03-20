@@ -2,7 +2,7 @@
 	<div>
 		<div class="card">
 			<header class="card-header">
-				<p class="card-header-title">{{ title }}</p>
+				<p class="card-header-title">{{ title }} {{ isExpanded }}</p>
 				<button
 					class="card-header-icon"
 					:aria-label="chevronAriaLabel"
@@ -11,6 +11,17 @@
 					<ChevronIcon :direction="chevronDirection" />
 				</button>
 			</header>
+			<div v-if="isExpanded">
+				<div class="card-content">
+					<div class="content">
+						Lorem ipsum leo risus, porta ac consectetur ac, vestibulum at eros.
+					</div>
+				</div>
+				<footer class="card-footer">
+					<a href="#" class="card-footer-item">Read</a>
+					<a href="#" class="card-footer-item">Remove</a>
+				</footer>
+			</div>
 		</div>
 	</div>
 </template>
@@ -29,23 +40,27 @@ export default Vue.extend({
 			type: String,
 			require: true,
 		},
+		slug: {
+			type: String,
+			require: true,
+		},
+		isExpanded: {
+			type: Boolean,
+			require: true,
+		},
 	},
-	data() {
-		return {
-			isExtended: false,
-		}
-	},
+	emits: ['expanded', 'collapsed'],
 	computed: {
 		chevronDirection() {
-			return this.isExtended ? 'up' : 'down'
+			return this.isExpanded ? 'up' : 'down'
 		},
 		chevronAriaLabel() {
-			return this.isExtended ? 'expanded' : 'collapsed'
+			return this.isExpanded ? 'expanded' : 'collapsed'
 		},
 	},
 	methods: {
 		onChevronClick() {
-			this.isExtended = !this.isExtended
+			this.$emit(this.isExpanded ? 'collapse' : 'expand', this.slug)
 		},
 	},
 })
