@@ -46,7 +46,6 @@ export default Vue.extend({
 	},
 	computed: {
 		wrapperStyle() {
-			console.log('test', this.height)
 			return { width: `${this.width}px`, height: `${this.height}px` }
 		},
 		lowResStyle() {

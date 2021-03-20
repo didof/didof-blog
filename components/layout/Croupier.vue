@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper" @click="distributeMode">
+	<div ref="wrapper" v-observe="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -83,7 +83,7 @@ export default Vue.extend({
 			return {
 				opacity: this.hasMounted ? 1 : 0,
 				boxShadow: 'none',
-				width: `${(this.columnWidth / 10) * 9}px`,
+				width: `${this.columnWidth}px`,
 			}
 		},
 		distributeMode() {
@@ -107,7 +107,6 @@ export default Vue.extend({
 				column.forEach((element, ic) => {
 					const x = ic * this.columnWidth
 					const y = ir * this.rowHeight + cardNumber
-					console.log(element, ir, ic)
 
 					let transformation = `translateX(-${x}px) translateY(-${y}px)`
 
@@ -177,7 +176,7 @@ export default Vue.extend({
 <style scoped>
 .flex {
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-start;
 	align-items: center;
 }
 
@@ -185,5 +184,6 @@ export default Vue.extend({
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	padding: 10px;
 }
 </style>

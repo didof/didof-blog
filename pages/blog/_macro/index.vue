@@ -15,7 +15,7 @@
 		</BaseGrid>
 
 		<div class="columns">
-			<section class="column">
+			<section class="column is-8">
 				<Croupier
 					:cards="shots"
 					:columnsAmount="5"

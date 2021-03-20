@@ -79,7 +79,7 @@ export default Vue.extend({
 		cardStyle() {
 			return {
 				height: `${this.height}px`,
-				width: `${this.width}px`,
+				width: `${this.width}px !important`,
 			}
 		},
 	},
