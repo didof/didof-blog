@@ -1,9 +1,13 @@
 <template>
 	<aside>
 		<Draggable v-model="savedReadings">
-			<div v-for="reading in savedReadings" :key="reading.slug">
-				<pre>{{ reading }}</pre>
-			</div>
+			<transition-group>
+				<SavedReadingShelf
+					v-for="reading in savedReadings"
+					:key="reading.slug"
+					:title="reading.title"
+				/>
+			</transition-group>
 		</Draggable>
 	</aside>
 </template>
@@ -11,11 +15,13 @@
 <script>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
+import SavedReadingShelf from './SavedReadingShelf.vue'
 
 export default Vue.extend({
 	name: 'saved-readings-library',
 	components: {
 		Draggable,
+		SavedReadingShelf,
 	},
 	computed: {
 		savedReadings: {

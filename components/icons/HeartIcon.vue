@@ -1,5 +1,5 @@
 <template>
 	<span class="icon">
-		<FontAwesomeIcon :icon="['fas', 'heart']" />
+		<FontAwesomeIcon fas icon="heart" />
 	</span>
 </template>

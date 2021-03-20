@@ -46,7 +46,7 @@ import Vue from 'vue'
 import TopicCard from '~/components/blog/card/TopicCard.vue'
 import Croupier from '~/components/layout/Croupier'
 import ShotCard from '~/components/blog/card/ShotCard'
-import SavedReadingsLibrary from '~/components/blog/SavedReadingsLibrary'
+import { SavedReadingsLibrary } from '~/components/blog/savedReadingsLibrary'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
