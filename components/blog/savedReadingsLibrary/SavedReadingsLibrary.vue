@@ -44,7 +44,7 @@ export default Vue.extend({
 		}
 	},
 	beforeDestroy() {
-		this.$store.dispatch('blogNotification/reset')
+		this.$store.dispatch('notification/reset')
 	},
 	computed: {
 		savedReadings: {
@@ -75,15 +75,16 @@ export default Vue.extend({
 		onExpand(slug) {
 			this.expandedSlug = slug
 		},
-		onCollapse(slug) {
+		onCollapse() {
 			this.expandedSlug = null
 		},
 		onLibraryEnter() {
-			this.$store.dispatch('blogNotification/setVisibility')
-			this.$store.dispatch('blogNotification/setDismissability', false)
+			this.$store.dispatch('notification/setVisibility')
+			this.$store.dispatch('notification/setDismissability', false)
+			this.$store.dispatch('notification/setContent', SavedReadingsNotification)
 		},
 		onLibraryLeave() {
-			this.$store.dispatch('blogNotification/setVisibility', false)
+			this.$store.dispatch('notification/setVisibility', false)
 		},
 	},
 })

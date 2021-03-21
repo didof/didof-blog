@@ -23,6 +23,9 @@ export default {
 	setVariant({ commit }, payload) {
 		commit('setVariant', withCheckAllowedVariant(payload))
 	},
+	setContent({ commit }, payload) {
+		commit('setContent', payload)
+	},
 	reset({ dispatch }) {
 		dispatch('setVisibility', false)
 		dispatch('setDismissability', true)

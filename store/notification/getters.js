@@ -8,4 +8,7 @@ export default {
 	variant(state) {
 		return 'is-' + state.variant
 	},
+	content(state) {
+		return state.content
+	},
 }

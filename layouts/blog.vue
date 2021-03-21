@@ -4,20 +4,20 @@
 
 		<Nuxt />
 
-		<BlogNotification />
+		<TheNotification />
 	</div>
 </template>
 
 <script>
 import Vue from 'vue'
-import { BlogHeader } from '~/components/layout/headers'
-import { BlogNotification } from '~/components/layout/notifications'
+import BlogHeader from '~/components/layout/headers/BlogHeader.vue'
+import TheNotification from '~/components/layout/TheNotification.vue'
 
 export default Vue.extend({
 	name: 'layout-blog',
 	components: {
 		BlogHeader,
-		BlogNotification,
+		TheNotification,
 	},
 })
 </script>

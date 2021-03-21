@@ -1,10 +1,10 @@
 import { Store } from 'vuex'
 import guest from '~/store/guest'
-import blogNotification from '~/store/blogNotification'
+import notification from '~/store/notification'
 
 const createStore = () =>
 	new Store({
-		modules: { guest, blogNotification },
+		modules: { guest, notification },
 	})
 
 export default createStore

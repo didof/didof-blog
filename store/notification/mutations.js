@@ -11,4 +11,7 @@ export default {
 	setVariant(state, payload) {
 		state.variant = payload
 	},
+	setContent(state, payload) {
+		state.content = payload
+	},
 }
