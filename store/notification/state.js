@@ -1,6 +1,6 @@
 export default {
 	isVisible: false,
-	isDismissable: true,
+	isDismissable: false,
 	variant: 'info',
 	content: null,
 }

@@ -1,12 +1,16 @@
 <template>
 	<div v-if="isVisible" v-animate-enter:slice.right>
-		<button
-			v-if="isDismissable"
-			class="delete"
-			@click="onDismissClick"
-		></button>
 		<span v-if="!content">Just passing by...</span>
-		<component v-else :is="content" />
+		<component
+			v-else
+			class="notification is-light"
+			:class="variant"
+			:is="content"
+		>
+			<template v-slot:delete>
+				<button v-if="isDismissable" class="delete"></button>
+			</template>
+		</component>
 	</div>
 </template>
 
@@ -22,15 +26,11 @@ export default Vue.extend({
 		isDismissable() {
 			return this.$store.getters['notification/isDismissable']
 		},
-		content() {
-			const test = this.$store.getters['notification/content']
-			console.log(test)
-			return test
+		variant() {
+			return this.$store.getters['notification/variant']
 		},
-	},
-	methods: {
-		onDismissClick() {
-			this.$store.dispatch('notification/changeVisibility', false)
+		content() {
+			return this.$store.getters['notification/content']
 		},
 	},
 })
