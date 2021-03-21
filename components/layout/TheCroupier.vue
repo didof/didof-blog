@@ -31,10 +31,6 @@ export default Vue.extend({
 			type: Array,
 			require: true,
 		},
-		columnsAmount: {
-			type: Number,
-			require: true,
-		},
 		rowHeight: {
 			type: Number,
 			require: true,
@@ -60,21 +56,37 @@ export default Vue.extend({
 		return {
 			hasMounted: false,
 			chunks: [],
+			columnsAmount: 6,
 			columnWidth: null,
 			cardsElements: [],
 		}
 	},
-	created() {
-		this.chunks = splitInChunks(this.cards, this.columnsAmount)
-	},
 	mounted() {
-		const { wrapper } = this.$refs
-		const { width } = wrapper.getBoundingClientRect()
-		this.columnWidth = width / this.columnsAmount
+		const w = window.outerWidth
+		console.log(w)
+		// mobile
+		if (w <= 480) this.columnsAmount = 1
+		// tablet
+		else if (w <= 768) this.columnsAmount = 2
+		// laptop
+		else if (w <= 1024) this.columnsAmount = 3
+		// desktop
+		else if (w <= 1200) this.columnsAmount = 4
+		// desktop large
+		else if (w <= 1480) this.columnsAmount = 5
+		// tv
+		else this.columnsAmount = 6
 
-		this.stackDeck()
+		this.chunks = splitInChunks(this.cards, this.columnsAmount)
+		this.$nextTick(() => {
+			const { wrapper } = this.$refs
+			const { width } = wrapper.getBoundingClientRect()
+			this.columnWidth = width / this.columnsAmount
 
-		this.hasMounted = true
+			this.stackDeck()
+
+			this.hasMounted = true
+		})
 	},
 	computed: {
 		itemStyle() {

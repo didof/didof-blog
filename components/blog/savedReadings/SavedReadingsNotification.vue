@@ -10,7 +10,7 @@
 
 <script>
 import Vue from 'vue'
-import KeysWatcher from '~/utils/KeysWatcher'
+import { KeysWatcher } from '~/utils/watchers'
 const keyToWatch = 'Control'
 
 export default Vue.extend({

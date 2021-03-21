@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="hero is-large is-info">
+		<div class="hero is-fullheight is-info">
 			<div class="hero-body">
 				<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
 				<BaseGrid :items="topics">
@@ -17,11 +17,20 @@
 			</div>
 		</div>
 
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
+
 		<div class="columns">
 			<TheArrogant class="column is-10">
 				<TheCroupier
 					:cards="shots"
-					:columnsAmount="5"
 					:rowHeight="400"
 					:isJaunty="true"
 					:mode="'snake'"
@@ -48,9 +57,9 @@
 
 <script>
 import Vue from 'vue'
-import { TheArrogant, TheCroupier } from '~/components/layout'
+import { TheArrogant, TheCroupier, SizeInjector } from '~/components/layout'
 import { TopicCard, ShotCard } from '~/components/blog/card'
-import { SavedReadingsLibrary } from '~/components/blog/savedReadingsLibrary'
+import { SavedReadingsLibrary } from '~/components/blog/savedReadings'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
