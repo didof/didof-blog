@@ -28,6 +28,7 @@ export default {
 		{ src: '~/plugins/directives/observe.js', mode: 'client' },
 		{ src: '~/plugins/directives/localizedHover.js', mode: 'client' },
 		{ src: '~/plugins/ui/vuedraggable.js', mode: 'client' },
+		{ src: '~/plugins/ui/buefy.js' },
 	],
 
 	// Auto import components: https://go.nuxtjs.dev/config-components

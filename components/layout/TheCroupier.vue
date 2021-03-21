@@ -63,7 +63,6 @@ export default Vue.extend({
 	},
 	mounted() {
 		const w = window.outerWidth
-		console.log(w)
 		// mobile
 		if (w <= 480) this.columnsAmount = 1
 		// tablet

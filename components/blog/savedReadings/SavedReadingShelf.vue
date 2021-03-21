@@ -25,9 +25,11 @@
 <script>
 import Vue from 'vue'
 import { ChevronIcon } from '~/components/icons'
+import { SavedReading } from '~/entities/'
 
 export default Vue.extend({
 	name: 'saved-reading-shelf',
+	emits: ['removed'],
 	components: {
 		ChevronIcon,
 	},
@@ -71,11 +73,9 @@ export default Vue.extend({
 			this.$emit(this.isExpanded ? 'collapse' : 'expand', this.slug)
 		},
 		onCtrlClick() {
-			this.$store.dispatch('guest/removeReading', this.slug)
+			this.$emit('removed', { ...this.$props })
 		},
 	},
-	// se il mouse va sopra la library appare sotto un toaster con il control in outline e scritto accanto delete. Se lo tieni premuto si illumina
-	// v-breakpoint="test" > .test-mobile .test-tablet .test-desktop
 })
 </script>
 

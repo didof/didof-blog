@@ -2,7 +2,6 @@
 	<aside @mouseenter="onLibraryEnter" @mouseleave="onLibraryLeave">
 		<Draggable
 			v-model="savedReadings"
-			@update="onUpdate"
 			:move="checkMove"
 			v-bind="dragOptions"
 			tag="div"
@@ -19,6 +18,7 @@
 					:is-expanded="expandedSlug === reading.slug"
 					@expand="onExpand"
 					@collapse="onCollapse"
+					@removed="onRemoved"
 				/>
 			</transition-group>
 		</Draggable>
@@ -28,6 +28,7 @@
 <script>
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
+import { SavedReading } from '~/entities'
 import SavedReadingShelf from './SavedReadingShelf.vue'
 import SavedReadingsNotification from './SavedReadingsNotification.vue'
 
@@ -40,6 +41,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
+			listLength: 0,
 			expandedSlug: null,
 		}
 	},
@@ -49,7 +51,9 @@ export default Vue.extend({
 	computed: {
 		savedReadings: {
 			get() {
-				return this.$store.getters['guest/savedReadings']
+				const savedReadings = this.$store.getters['guest/savedReadings']
+				this.listLength = savedReadings ? savedReadings.length : 0
+				return savedReadings
 			},
 			set(value) {
 				this.$store.dispatch('guest/updateSavedReadingsOrder', value)
@@ -64,15 +68,14 @@ export default Vue.extend({
 		},
 	},
 	watch: {
-		savedReadings(value) {
-			if (!value.length)
+		listLength(current, previous) {
+			if (!current.length)
 				this.$store.dispatch('notification/setVisibility', false)
+			if (current < previous) {
+			}
 		},
 	},
 	methods: {
-		onUpdate(event) {
-			// toaster
-		},
 		checkMove({ draggedContext }) {
 			const { index } = draggedContext
 			const { slug } = this.savedReadings[index]
@@ -91,6 +94,28 @@ export default Vue.extend({
 		},
 		onLibraryLeave() {
 			this.$store.dispatch('notification/setVisibility', false)
+		},
+		onRemoved({ macro, topic, slug, title, description }) {
+			this.$store.dispatch('guest/removeReading', slug)
+			this.$buefy.snackbar.open({
+				duration: 3000,
+				message: `Post ${title} removed`,
+				type: 'is-info',
+				position: 'is-bottom-left',
+				actionText: 'Undo',
+				queue: false,
+				onAction: () => {
+					const path = `/blog/${macro}/${topic}/${slug}`
+					const savedReading = new SavedReading(path, title, description)
+					this.$store.dispatch('guest/saveReading', savedReading)
+
+					this.$buefy.toast.open({
+						duration: 1000,
+						message: `${title} restored`,
+						queue: false,
+					})
+				},
+			})
 		},
 	},
 })
