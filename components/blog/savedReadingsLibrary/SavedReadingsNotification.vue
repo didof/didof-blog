@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div v-animate-enter:slide.right>
 		<slot name="delete"></slot>
-		<span class="tag is-medium is-dark"> Ctrl </span>
+		<span class="tag is-medium" :class="alternateTagColor"> Ctrl </span>
 		+
 		<span class="tag is-medium is-dark"> Click </span>
 		= delete
@@ -10,29 +10,30 @@
 
 <script>
 import Vue from 'vue'
-
-// todo class WatchKey
+import KeysWatcher from '~/utils/KeysWatcher'
+const keyToWatch = 'Control'
 
 export default Vue.extend({
 	name: 'saved-readings-notification',
+	data() {
+		return {
+			keysWatcher: null,
+		}
+	},
 	computed: {
-		isDismissable() {
-			return this.$store.getters['notification/isDismissable']
+		alternateTagColor() {
+			const isCtrlPressed = this.keysWatcher.pressedKeys.includes(keyToWatch)
+			return {
+				'is-dark': !isCtrlPressed,
+				'is-primary': isCtrlPressed,
+			}
 		},
 	},
 	created() {
-		console.log('created')
+		this.keysWatcher = new KeysWatcher([keyToWatch])
 	},
 	beforeDestroy() {
-		console.log('destroy')
+		this.keysWatcher.unregister()
 	},
 })
 </script>
-
-<style scoped>
-.center {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-}
-</style>

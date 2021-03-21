@@ -1,16 +1,12 @@
 <template>
-	<div v-if="isVisible" v-animate-enter:slice.right>
-		<span v-if="!content">Just passing by...</span>
-		<component
-			v-else
-			class="notification is-light"
-			:class="variant"
-			:is="content"
-		>
-			<template v-slot:delete>
-				<button v-if="isDismissable" class="delete"></button>
-			</template>
-		</component>
+	<div v-if="isVisible">
+		<div v-if="content">
+			<component class="notification is-light" :class="variant" :is="content">
+				<template v-slot:delete>
+					<button v-if="isDismissable" class="delete"></button>
+				</template>
+			</component>
+		</div>
 	</div>
 </template>
 

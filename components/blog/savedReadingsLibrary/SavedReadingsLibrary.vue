@@ -63,6 +63,12 @@ export default Vue.extend({
 			}
 		},
 	},
+	watch: {
+		savedReadings(value) {
+			if (!value.length)
+				this.$store.dispatch('notification/setVisibility', false)
+		},
+	},
 	methods: {
 		onUpdate(event) {
 			// toaster
