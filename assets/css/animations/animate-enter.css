@@ -1,21 +1,21 @@
-.will-animate {
+.will-animate-enter {
 	opacity: 0;
 }
 
 .animate-slide-top {
-	animation: slide-top 2s ease-in-out;
+	animation: slide-top 0.5s ease-in-out forwards;
 }
 
 .animate-slide-right {
-	animation: slide-right 2s ease-in-out;
+	animation: slide-right 0.5s ease-in-out forwards;
 }
 
 .animate-slide-bottom {
-	animation: slide-bottom 2s ease-in-out;
+	animation: slide-bottom 0.5s ease-in-out forwards;
 }
 
 .animate-slide-left {
-	animation: slide-left 2s ease-in-out;
+	animation: slide-left 0.5s ease-in-out forwards;
 }
 
 @keyframes slide-top {

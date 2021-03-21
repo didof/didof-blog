@@ -118,9 +118,4 @@ export default Vue.extend({
 section {
 	margin: 20px;
 }
-
-article {
-	width: 50px;
-	height: 50px;
-}
 </style>

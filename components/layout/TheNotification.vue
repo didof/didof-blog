@@ -1,7 +1,12 @@
 <template>
 	<div v-if="isVisible">
 		<div v-if="content">
-			<component class="notification is-light" :class="variant" :is="content">
+			<component
+				class="notification is-light"
+				:class="variant"
+				:is="content"
+				style="opacity: 0"
+			>
 				<template v-slot:delete>
 					<button v-if="isDismissable" class="delete"></button>
 				</template>

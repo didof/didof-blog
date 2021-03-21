@@ -1,0 +1,14 @@
+.animate-leave-slide-bottom {
+	animation: slide-bottom 0.5s ease-in-out forwards;
+}
+
+@keyframes slide-bottom {
+	from {
+		opacity: 1;
+		transform: translateY(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+}
