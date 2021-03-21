@@ -16,6 +16,7 @@ const observer = new IntersectionObserver((entries, observer) => {
 
 Vue.directive('observe', {
 	bind: (el, binding) => {
+		const delay = binding.arg || 0
 		const cb = binding.value
 
 		if (!(cb instanceof Function)) {
@@ -28,7 +29,7 @@ Vue.directive('observe', {
 		const observer = new IntersectionObserver((entries, observer) => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) {
-					cb()
+					setTimeout(cb, parseInt(delay))
 
 					observer.unobserve(entry.target)
 				}

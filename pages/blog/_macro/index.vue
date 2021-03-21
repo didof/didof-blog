@@ -1,22 +1,25 @@
 <template>
-	<div class="container is-fluid">
-		<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
-
-		<BaseGrid :items="topics">
-			<template v-slot:default="slotProps">
-				<TopicCard
-					:slug="slotProps.item.topic"
-					@card-click="onTopicCardClick(slotProps.item.topic)"
-					v-animate-enter:slide.bottom
-					v-cursor
-					v-localized-hover
-				/>
-			</template>
-		</BaseGrid>
+	<div>
+		<div class="hero is-large is-info">
+			<div class="hero-body">
+				<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
+				<BaseGrid :items="topics">
+					<template v-slot:default="slotProps">
+						<TopicCard
+							:slug="slotProps.item.topic"
+							@card-click="onTopicCardClick(slotProps.item.topic)"
+							v-animate-enter:slide.bottom
+							v-cursor
+							v-localized-hover
+						/>
+					</template>
+				</BaseGrid>
+			</div>
+		</div>
 
 		<div class="columns">
-			<section class="column is-10">
-				<Croupier
+			<TheArrogant class="column is-10">
+				<TheCroupier
 					:cards="shots"
 					:columnsAmount="5"
 					:rowHeight="400"
@@ -34,8 +37,8 @@
 							:path="slotProps.item.path"
 						/>
 					</template>
-				</Croupier>
-			</section>
+				</TheCroupier>
+			</TheArrogant>
 			<section class="colum">
 				<SavedReadingsLibrary />
 			</section>
@@ -45,9 +48,8 @@
 
 <script>
 import Vue from 'vue'
-import TopicCard from '~/components/blog/card/TopicCard.vue'
-import Croupier from '~/components/layout/Croupier'
-import ShotCard from '~/components/blog/card/ShotCard'
+import { TheArrogant, TheCroupier } from '~/components/layout'
+import { TopicCard, ShotCard } from '~/components/blog/card'
 import { SavedReadingsLibrary } from '~/components/blog/savedReadingsLibrary'
 
 import { capitalize } from '~/utils/dataTypes/string'
@@ -57,8 +59,9 @@ export default Vue.extend({
 	name: 'page-blog-macro',
 	layout: 'blog',
 	components: {
+		TheCroupier,
+		TheArrogant,
 		TopicCard,
-		Croupier,
 		ShotCard,
 		SavedReadingsLibrary,
 	},

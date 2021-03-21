@@ -8,14 +8,13 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-	name: 'arrogant',
+	name: 'the-arrogant',
 	data() {
 		return {
 			offset: null,
 		}
 	},
 	mounted() {
-		console.log(this)
 		this.offset = this.$el.offsetTop
 	},
 	methods: {

@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper" v-observe="distributeMode">
+	<div ref="wrapper" v-observe:500="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -25,7 +25,7 @@ import { splitInChunks } from '~/utils/dataTypes/array'
 import { getRandomInt } from '~/utils/randomInt'
 
 export default Vue.extend({
-	name: 'croupier',
+	name: 'the-croupier',
 	props: {
 		cards: {
 			type: Array,

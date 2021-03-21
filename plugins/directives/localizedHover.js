@@ -60,7 +60,7 @@ const reset = event => {
 }
 
 Vue.directive('localized-hover', {
-	bind(el, binding, vnode) {
+	bind(el, _, vnode) {
 		if (vnode.elm && vnode.elm.parentNode)
 			vnode.elm.parentNode.style.perspective = 800
 
@@ -77,10 +77,7 @@ Vue.directive('localized-hover', {
 		el.addEventListener('mousemove', localizedHover)
 		el.addEventListener('mouseleave', reset)
 	},
-	unbind(el, binding, vnode) {
-		if (vnode.elm && vnode.elm.parentNode)
-			vnode.elm.parentNode.style.perspective = 800
-
+	unbind(el) {
 		el.removeAttribute('data-directive')
 		el.removeEventListener('mousemove', localizedHover)
 		el.addEventListener('mouseleave', reset)
