@@ -43,9 +43,9 @@ const localizedHover = event => {
 	gridPosition[1] = getGridPosition(offsetY, rows)
 
 	const rotation = {
-		0: -15,
+		0: 15,
 		1: 0,
-		2: 15,
+		2: -15,
 	}
 
 	const rotateX = `rotateX(${rotation[gridPosition[1]]}deg)`
@@ -60,11 +60,13 @@ const reset = event => {
 }
 
 Vue.directive('localized-hover', {
-	bind(el) {
+	bind(el, binding, vnode) {
+		vnode.elm.parentNode.style.perspective = 800
 		const id = getRandomInt(0, 100)
 		const { width, height } = el.getBoundingClientRect()
 		el.setAttribute('data-directive', `localized-hover:${id}`)
 		el.style.transition = 'all 0.3s ease-in-out 0.1s'
+		el.style.transformStyle = 'preserve-3d'
 		states[id] = {
 			columns: [width / 3, (width / 3) * 2, width],
 			rows: [height / 3, (height / 3) * 2, height],

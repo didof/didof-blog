@@ -15,7 +15,7 @@
 		</BaseGrid>
 
 		<div class="columns">
-			<section class="column is-8">
+			<section class="column is-10">
 				<Croupier
 					:cards="shots"
 					:columnsAmount="5"
@@ -36,7 +36,9 @@
 					</template>
 				</Croupier>
 			</section>
-			<SavedReadingsLibrary />
+			<section class="colum">
+				<SavedReadingsLibrary />
+			</section>
 		</div>
 	</div>
 </template>
@@ -119,6 +121,5 @@ section {
 article {
 	width: 50px;
 	height: 50px;
-	background-color: red;
 }
 </style>

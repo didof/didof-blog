@@ -1,10 +1,9 @@
 <template>
-	<div class="card specific">
+	<div class="card specific" @click.ctrl="onCtrlClick">
 		<header
 			class="card-header"
 			v-cursor:move.pointer="isExpanded"
 			@click.exact="onExactClick"
-			@click.ctrl="onCtrlClick"
 		>
 			<p class="card-header-title">{{ title }}</p>
 			<button class="card-header-icon" :aria-label="chevronAriaLabel">
@@ -75,6 +74,9 @@ export default Vue.extend({
 			this.$store.dispatch('guest/removeReading', this.slug)
 		},
 	},
+	// se il mouse va sopra la library appare sotto un toaster con il control in outline e scritto accanto delete. Se lo tieni premuto si illumina
+	// v-breakpoint="test" > .test-mobile .test-tablet .test-desktop
+	// v-localized-hover -> perspective sul parent
 })
 </script>
 
