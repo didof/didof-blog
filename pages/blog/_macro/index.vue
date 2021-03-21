@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="hero is-fullheight is-info">
+		<TheTopicCarousel :items="topics" />
+		<!-- <div class="hero is-fullheight is-info">
 			<div class="hero-body">
 				<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
 				<BaseGrid :items="topics">
@@ -15,8 +16,13 @@
 					</template>
 				</BaseGrid>
 			</div>
-		</div>
+		</div> -->
 
+		<br />
+		<br />
+		<br />
+		<br />
+		<br />
 		<br />
 		<br />
 		<br />
@@ -28,7 +34,7 @@
 		<br />
 
 		<div class="columns">
-			<TheArrogant class="column is-10">
+			<div class="column is-10">
 				<TheCroupier
 					:cards="shots"
 					:rowHeight="400"
@@ -47,7 +53,7 @@
 						/>
 					</template>
 				</TheCroupier>
-			</TheArrogant>
+			</div>
 			<section class="colum">
 				<SavedReadingsLibrary />
 			</section>
@@ -57,12 +63,14 @@
 
 <script>
 import Vue from 'vue'
-import { TheArrogant, TheCroupier, SizeInjector } from '~/components/layout'
+import { TheArrogant, TheCroupier } from '~/components/layout'
 import { TopicCard, ShotCard } from '~/components/blog/card'
 import { SavedReadingsLibrary } from '~/components/blog/savedReadings'
 
 import { capitalize } from '~/utils/dataTypes/string'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
+
+import { TheTopicCarousel } from '~/components/blog/topicsCarousel'
 
 export default Vue.extend({
 	name: 'page-blog-macro',
@@ -73,6 +81,7 @@ export default Vue.extend({
 		TopicCard,
 		ShotCard,
 		SavedReadingsLibrary,
+		TheTopicCarousel,
 	},
 	async asyncData({ $content, params }) {
 		const { macro } = params

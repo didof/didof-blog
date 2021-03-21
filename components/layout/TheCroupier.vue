@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper" v-observe:500="distributeMode">
+	<div ref="wrapper" @mouseover="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -96,6 +96,7 @@ export default Vue.extend({
 			}
 		},
 		distributeMode() {
+			console.log('yop')
 			switch (this.mode) {
 				case 'rows':
 				case 'default':
