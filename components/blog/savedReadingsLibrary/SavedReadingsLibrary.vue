@@ -1,28 +1,27 @@
 <template>
-	<aside>
-		<div>
-			<Draggable
-				v-model="savedReadings"
-				@update="onUpdate"
-				:move="checkMove"
-				v-bind="dragOptions"
-			>
-				<transition-group name="shelfs">
-					<SavedReadingShelf
-						v-for="reading in savedReadings"
-						:key="reading.slug"
-						:title="reading.title"
-						:description="reading.description"
-						:macro="reading.macro"
-						:topic="reading.topic"
-						:slug="reading.slug"
-						:is-expanded="expandedSlug === reading.slug"
-						@expand="onExpand"
-						@collapse="onCollapse"
-					/>
-				</transition-group>
-			</Draggable>
-		</div>
+	<aside @mouseenter="onLibraryEnter" @mouseleave="onLibraryLeave">
+		<Draggable
+			v-model="savedReadings"
+			@update="onUpdate"
+			:move="checkMove"
+			v-bind="dragOptions"
+			tag="div"
+		>
+			<transition-group name="shelfs">
+				<SavedReadingShelf
+					v-for="reading in savedReadings"
+					:key="reading.slug"
+					:title="reading.title"
+					:description="reading.description"
+					:macro="reading.macro"
+					:topic="reading.topic"
+					:slug="reading.slug"
+					:is-expanded="expandedSlug === reading.slug"
+					@expand="onExpand"
+					@collapse="onCollapse"
+				/>
+			</transition-group>
+		</Draggable>
 	</aside>
 </template>
 
@@ -30,17 +29,22 @@
 import Vue from 'vue'
 import Draggable from 'vuedraggable'
 import SavedReadingShelf from './SavedReadingShelf.vue'
+import SavedReadingsNotification from './SavedReadingsNotification.vue'
 
 export default Vue.extend({
 	name: 'saved-readings-library',
 	components: {
 		Draggable,
 		SavedReadingShelf,
+		SavedReadingsNotification,
 	},
 	data() {
 		return {
 			expandedSlug: null,
 		}
+	},
+	beforeDestroy() {
+		this.$store.dispatch('blogNotification/reset')
 	},
 	computed: {
 		savedReadings: {
@@ -73,6 +77,13 @@ export default Vue.extend({
 		},
 		onCollapse(slug) {
 			this.expandedSlug = null
+		},
+		onLibraryEnter() {
+			this.$store.dispatch('blogNotification/setVisibility')
+			this.$store.dispatch('blogNotification/setDismissability', false)
+		},
+		onLibraryLeave() {
+			this.$store.dispatch('blogNotification/setVisibility', false)
 		},
 	},
 })

@@ -72,8 +72,6 @@ export default Vue.extend({
 		const { width } = wrapper.getBoundingClientRect()
 		this.columnWidth = width / this.columnsAmount
 
-		console.log(this.columnWidth)
-
 		this.stackDeck()
 
 		this.hasMounted = true

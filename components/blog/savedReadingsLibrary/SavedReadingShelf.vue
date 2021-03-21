@@ -76,7 +76,6 @@ export default Vue.extend({
 	},
 	// se il mouse va sopra la library appare sotto un toaster con il control in outline e scritto accanto delete. Se lo tieni premuto si illumina
 	// v-breakpoint="test" > .test-mobile .test-tablet .test-desktop
-	// v-localized-hover -> perspective sul parent
 })
 </script>
 

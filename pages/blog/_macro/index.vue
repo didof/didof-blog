@@ -55,6 +55,7 @@ import { groupWithAmount } from '~/utils/contentHandlers/group'
 
 export default Vue.extend({
 	name: 'page-blog-macro',
+	layout: 'blog',
 	components: {
 		TopicCard,
 		Croupier,

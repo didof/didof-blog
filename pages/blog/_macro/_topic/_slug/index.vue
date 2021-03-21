@@ -24,7 +24,6 @@ export default Vue.extend({
 
 		if (topic === '_shots') {
 			const articleIndex = await $content(macro, topic, slug).fetch()
-			console.log(articleIndex)
 			return {
 				macro,
 				topic,
