@@ -1,5 +1,5 @@
 <template>
-	<div ref="wrapper" @mouseover="distributeMode">
+	<div ref="wrapper" @mouseenter="distributeMode">
 		<div
 			v-for="(chunk, index) in chunks"
 			:key="`croupier-chunk-${index}`"
@@ -54,6 +54,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
+			hasHovered: false,
 			hasMounted: false,
 			chunks: [],
 			columnsAmount: 6,
@@ -96,7 +97,8 @@ export default Vue.extend({
 			}
 		},
 		distributeMode() {
-			console.log('yop')
+			if (this.hasHovered) return
+			this.hasHovered = true
 			switch (this.mode) {
 				case 'rows':
 				case 'default':
