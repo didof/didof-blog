@@ -37,24 +37,17 @@
 <script>
 import Vue from 'vue'
 import DeferredImage from '~/components/image/DeferredImage'
+import { windowHeight, windowWidth } from '~/mixins'
+console.log(windowHeight)
 
 export default Vue.extend({
 	name: 'the-macro-carousel',
+	mixins: [windowHeight, windowWidth],
 	props: {
 		items: {
 			type: Array,
 			require: true,
 		},
-	},
-	data() {
-		return {
-			width: null,
-			height: null,
-		}
-	},
-	mounted() {
-		this.width = window.innerWidth
-		this.height = window.innerHeight
 	},
 	components: {
 		DeferredImage,

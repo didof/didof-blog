@@ -12,6 +12,8 @@ export default {
 		link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
 	},
 
+	target: 'static',
+
 	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: [
 		'~/assets/css/main',
@@ -76,6 +78,7 @@ export default {
 	build: {
 		extend(config) {
 			config.resolve.alias['~easter-eggs'] = path.join(__dirname, 'easter-eggs')
+			config.resolve.alias['~mixins'] = path.join(__dirname, 'mixins')
 		},
 	},
 }
