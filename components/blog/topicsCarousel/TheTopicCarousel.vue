@@ -38,7 +38,6 @@
 import Vue from 'vue'
 import DeferredImage from '~/components/image/DeferredImage'
 import { windowHeight, windowWidth } from '~/mixins'
-console.log(windowHeight)
 
 export default Vue.extend({
 	name: 'the-macro-carousel',

@@ -63,7 +63,6 @@ export default Vue.extend({
 	},
 	created() {
 		this.tabs = this.$store.getters['homepage/tabs']
-		console.log(this.tabs)
 	},
 })
 </script>
