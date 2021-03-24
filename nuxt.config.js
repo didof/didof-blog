@@ -19,7 +19,7 @@ export default {
 		'~/assets/css/animations/animate-enter.css',
 	],
 
-	mode: 'server',
+	mode: 'universal',
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [
