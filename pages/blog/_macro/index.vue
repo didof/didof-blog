@@ -104,6 +104,7 @@ export default Vue.extend({
 				'thumbnailLowRes',
 				'thumbnailHighRes',
 				'slug',
+				'path'
 			])
 			.fetch()
 
