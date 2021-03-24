@@ -1,7 +1,7 @@
 import path from 'path'
 
 export default {
-	target: 'server',
+	target: 'static',
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	head: {
 		title: 'Didof',
@@ -81,4 +81,16 @@ export default {
 			config.resolve.alias['~mixins'] = path.join(__dirname, 'mixins')
 		},
 	},
+
+	generate: {
+		fallback: true,
+		routes() {
+			return [
+				'/blog/react',
+				'/blog/vue',
+				'/blog/react/customhooks',
+				'/blog/react/_shots/post8'
+			]
+		}
+	}
 }
