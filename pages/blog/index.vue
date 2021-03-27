@@ -22,35 +22,41 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import MacroCard from '~/components/blog/card/MacroCard'
 import { groupWithAmount } from '~/utils/contentHandlers/group'
+import {
+	defineComponent,
+	useContext,
+	useAsync,
+	useRouter,
+} from '@nuxtjs/composition-api'
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'page-blog',
 	components: {
 		MacroCard,
 	},
-	async asyncData({ $content }) {
-		const articlesPaths = await $content({ deep: true }).only(['path']).fetch()
+	setup() {
+		const { $content } = useContext()
+		const macros = useAsync(async () => {
+			const articlesPaths = await $content({ deep: true })
+				.only(['path'])
+				.fetch()
 
-		const groupedMacros = groupWithAmount(articlesPaths, 'macro')
+			return groupWithAmount(articlesPaths, 'macro')
+		})
 
-		return { macros: groupedMacros }
-	},
-	methods: {
-		onMacroCardClick(macroSlug) {
-			this.$router.push({
+		const router = useRouter()
+		const onMacroCardClick = macro => {
+			router.push({
 				name: 'blog-macro',
-				params: { macro: macroSlug },
+				params: {
+					macro,
+				},
 			})
-		},
+		}
+
+		return { macros, onMacroCardClick }
 	},
 })
 </script>
-
-<style scoped>
-.test {
-	height: 200px;
-}
-</style>

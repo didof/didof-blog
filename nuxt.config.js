@@ -59,6 +59,7 @@ export default {
 		'@nuxtjs/pwa',
 		// https://go.nuxtjs.dev/content
 		'@nuxt/content',
+		'@nuxtjs/composition-api'
 	],
 
 	// Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -84,6 +85,7 @@ export default {
 
 	generate: {
 		fallback: true,
+		interval: 1000,
 		routes() {
 			return [
 				'/blog/react',

@@ -1,22 +1,6 @@
 <template>
 	<div>
 		<TheTopicCarousel :items="topics" />
-		<!-- <div class="hero is-fullheight is-info">
-			<div class="hero-body">
-				<h1 class="title" v-animate-enter:slide.left>{{ capitalizedMacro }}</h1>
-				<BaseGrid :items="topics">
-					<template v-slot:default="slotProps">
-						<TopicCard
-							:slug="slotProps.item.topic"
-							@card-click="onTopicCardClick(slotProps.item.topic)"
-							v-animate-enter:slide.bottom
-							v-cursor
-							v-localized-hover
-						/>
-					</template>
-				</BaseGrid>
-			</div>
-		</div> -->
 
 		<br />
 		<br />

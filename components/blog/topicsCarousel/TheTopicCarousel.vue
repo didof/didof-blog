@@ -38,29 +38,40 @@
 import Vue from 'vue'
 import DeferredImage from '~/components/image/DeferredImage'
 import { windowHeight, windowWidth } from '~/mixins'
+import { useRoute, useRouter } from '@nuxtjs/composition-api'
 
 export default Vue.extend({
 	name: 'the-macro-carousel',
 	mixins: [windowHeight, windowWidth],
+	components: {
+		DeferredImage,
+	},
 	props: {
 		items: {
 			type: Array,
 			require: true,
 		},
 	},
-	components: {
-		DeferredImage,
-	},
-	methods: {
-		getSrc(res, topic) {
-			return require(`~/assets/images/topic/${res}Res-${topic}.png`)
-		},
-		onClick(topic) {
-			this.$router.push({
+	setup() {
+		const route = useRoute()
+		const router = useRouter()
+
+		function getSrc(resolution, topic) {
+			return require(`~/assets/images/topic/${resolution}Res-${topic}.png`)
+		}
+
+		function onClick(topic) {
+			const { macro } = route.value.params
+			router.push({
 				name: 'blog-macro-topic',
-				params: { macro: this.$route.params.macro, topic },
+				params: { macro, topic },
 			})
-		},
+		}
+
+		return {
+			getSrc,
+			onClick,
+		}
 	},
 })
 </script>
